@@ -1,0 +1,118 @@
+<div id="main"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTable - Mazer Admin Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
+</head>
+	<header class="mb-3">
+		<a href="#" class="burger-btn d-block d-xl-none"> <i
+			class="bi bi-justify fs-3"></i>
+		</a>
+		
+	</header>
+
+	<div class="page-heading">
+		<div class="page-title">
+			<div class="row">
+				<div class="col-12 col-md-6 order-md-1 order-last">
+					<h3>Sản Phẩm</h3>
+				</div>
+				<div class="col-12 col-md-6 order-md-2 order-first">
+					<nav aria-label="breadcrumb"
+						class="breadcrumb-header float-start float-lg-end">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Sản Phẩm</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<section class="section">
+			<div class="card">
+				<div class="card-header">Sản Phẩm</div>
+				<div class="card-body">
+				<a class="btn btn-success" th:href="@{/LegoShop/Admin/SanPham/Add}">Thêm Sản Phẩm</a>
+					<table class="table table-striped" id="table1">
+						<thead>
+							<tr>
+						<th>STT</th>
+								<th>Mã Sản Phẩm</th>
+								<th>Tên Sản Phẩm</th>
+								<th>Danh Mục</th>
+								<th>Mô Tả </th>
+								<th>Giá</th>
+								<th>Độ Tuổi Tối Thiểu</th>
+								<th>Số Mảnh</th>
+								<th>Năm Phát Hành</th>
+								<th>Trạng Thái</th>
+								<th> Hành Động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="sp, stt : ${list}">
+								<td th:text="${stt.count}">ádfasdf</td>
+								<td th:text="${sp.maSanPham}">ádfasd</td>
+								<td th:text="${sp.tenSanPham}">adsfasdfa </td>
+								<td th:text="${sp.danhMuc.getTenDanhMuc()}">adsfasdfa </td>
+								
+								<td th:text="${sp.moTa}">adfasdf</td>
+								<td th:text="${sp.gia}">ầdsf</td>
+								<td th:text="${sp.doTuoiToiThieu}">adfadf</td>
+								<td th:text="${sp.soManh}">adfa</td>
+								<td th:text="${sp.namPhatHanh}">ádfafda</td>
+								<td th:text="${sp.trangThai == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}">ádfasdfasd</td>
+								<td ><a
+								th:href="@{/LegoShop/Admin/SanPham/toggle/{id}(id=${sp.id})}"
+								 th:text="${sp.trangThai} == 'DANG_BAN' ? 'Ẩn' : 'Hiện'"
+									th:classappend="${sp.trangThai} == 'DANG_BAN' ? 'btn btn-warning' : 'btn btn-success'"
+									class="btn"></a>
+									<a class="btn btn-secondary" th:href="@{/LegoShop/Admin/SanPham/Edit/{id}(id=${sp.id})}" >Sửa</a></td>
+																
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</section>
+	</div>
+
+	<footer>
+		<div class="footer clearfix mb-0 text-muted">
+			<div class="float-start">
+				<p>2021 &copy; Mazer</p>
+			</div>
+			<div class="float-end">
+				<p>
+					Crafted with <span class="text-danger"><i
+						class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
+						Saugi</a>
+				</p>
+			</div>
+		</div>
+	</footer>
+	 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+
+    <script src="/assets/js/main.js"></script>
+</div>

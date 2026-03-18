@@ -1,0 +1,114 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div id="main">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none"> <i
+				class="bi bi-justify fs-3"></i>
+			</a>
+		</header>
+
+		<div class="page-heading">
+			<div class="page-title">
+				<div class="row">
+					<div class="col-12 col-md-6 order-md-1 order-last">
+						<h3>Thêm Sản Phẩm</h3>
+						<p class="text-subtitle text-muted">Multiple form layout you
+							can use</p>
+					</div>
+					<div class="col-12 col-md-6 order-md-2 order-first">
+						<nav aria-label="breadcrumb"
+							class="breadcrumb-header float-start float-lg-end">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Dashboard</a></li>
+								<li class="breadcrumb-item"><a
+									th:href="@{/LegoShop/Admin/SanPham}">Sản Phẩm</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Thêm
+									Sản Phẩm</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<!-- // Basic multiple Column Form section start -->
+			<section id="multiple-column-form">
+				<div class="row match-height">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Multiple Column</h4>
+							</div>
+							<div class="card-content">
+								<div class="card-body">
+									<form class="form" action="/LegoShop/Admin/SanPham/Store"
+										method="post" th:object="${model}">
+
+										<div class="row">
+											<div class="col-md-12 col-12">
+												<div class="form-group">
+													<label>Danh mục</label> <select class="form-select"
+														th:field="*{danhMuc.id}">
+														<option value="">-- Chọn danh mục --</option>
+														<option th:each="dm : ${list}" th:value="${dm.id}"
+															th:text="${dm.tenDanhMuc}"></option>
+													</select>
+												</div>
+
+
+												<div class="form-group">
+													<label for="ten">Mã Sản Phẩm</label> <input type="text"
+														class="form-control" placeholder="Mã Sản Phẩm" th:field="*{maSanPham}" 
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('maSanPham')}" th:Errors="*{maSanPham}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Tên Sản Phẩm</label> <input type="text" th:field="*{tenSanPham}"
+														class="form-control" placeholder="Tên Sản Phẩm"
+														 > <span class="text-danger"  th:if="${#fields.hasErrors('tenSanPham')}" th:Errors="*{tenSanPham}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Đường Dẫn</label> <input type="text" th:field="*{duongDan}"
+														class="form-control" placeholder="Đường Dẫn"
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('duongDan')}" th:Errors="*{duongDan}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Mô Tả</label> <input type="text" th:field="*{moTa}"
+														class="form-control" placeholder="Mô Tả"
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('moTa')}" th:Errors="*{moTa}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Giá</label> <input type="number" th:field="*{gia}"
+														class="form-control" placeholder="Giá"  >
+													<span class="text-danger"   th:if="${#fields.hasErrors('gia')}" th:Errors="*{gia}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Độ Tuổi Tối Thiểu</label> <input th:field="*{doTuoiToiThieu}"
+														type="text" class="form-control"
+														placeholder="Độ Tuổi Tối Thiểu"  >
+													<span class="text-danger"   th:if="${#fields.hasErrors('doTuoiToiThieu')}" th:Errors="*{doTuoiToiThieu}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Số Mảnh</label> <input type="number" th:field="*{soManh}"
+														class="form-control" placeholder="Số Mảnh"
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('soManh')}" th:Errors="*{soManh}"></span>
+												</div>
+												<div class="form-group">
+													<label for="ten">Năm Phát Hành</label> <input type="number" th:field="*{namPhatHanh}"
+														class="form-control" placeholder="Năm Phát Hành"
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('namPhatHanh')}" th:Errors="*{namPhatHanh}"></span>
+												</div>
+											</div>
+											<div class="col-12 d-flex justify-content-end">
+												<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+												<button type="reset"
+													class="btn btn-light-secondary me-1 mb-1">Reset</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- // Basic multiple Column Form section end -->
+		</div>
+	</div>
+</div>

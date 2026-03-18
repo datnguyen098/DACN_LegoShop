@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataTable - Mazer Admin Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/bootstrap.css">
+
+<link rel="stylesheet"
+	href="/assets/vendors/simple-datatables/style.css">
+
+<link rel="stylesheet"
+	href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet"
+	href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="/assets/css/app.css">
+<link rel="shortcut icon" href="/assets/images/favicon.svg"
+	type="image/x-icon">
+</head>
+<div id="main" xmlns:th="http://www.thymeleaf.org">
+	<header class="mb-3">
+		<a href="#" class="burger-btn d-block d-xl-none"> <i
+			class="bi bi-justify fs-3"></i>
+		</a>
+
+	</header>
+
+	<div class="page-heading">
+		<div class="page-title">
+			<div class="row">
+				<div class="col-12 col-md-6 order-md-1 order-last">
+					<h3>Danh Mục</h3>
+				</div>
+				<div class="col-12 col-md-6 order-md-2 order-first">
+					<nav aria-label="breadcrumb"
+						class="breadcrumb-header float-start float-lg-end">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Danh
+								Mục</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<section class="section">
+			<div class="card">
+				<div class="card-header">Danh Mục Sản Phẩm</div>
+				<div class="card-body">
+					<a class="btn btn-success" href="/LegoShop/Admin/DanhMuc/Add">Thêm
+						Danh Mục</a>
+					<table class="table table-striped" id="table1">
+						<thead>
+							<tr>
+								<th>STT</th>
+								<th>Tên Danh Mục</th>
+								<th>Đường Dẫn</th>
+								<th>Trạng Thái</th>
+								<th>Hành Động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="dm, stt : ${list}">
+								<td th:text="${stt.count}">Graiden</td>
+								<td th:text="${dm.tenDanhMuc}">vehicula.aliquet@semconsequat.co.uk</td>
+								<td th:text="${dm.duongDan}">076 4820 8838</td>
+								<td th:text="${dm.trangThai == true ? 'Đang Sử Dụng':'Đã Ẩn'}">Offenburg</td>
+								<td><a
+									th:href="@{/LegoShop/Admin/DanhMuc/toggle/{id}(id=${dm.id})}"
+									th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
+									th:classappend="${dm.trangThai} ? 'btn btn-warning' : 'btn btn-success'"
+									class="btn"> </a> <a
+									th:href="@{/LegoShop/Admin/DanhMuc/Edit/{id}(id=${dm.id})}"
+									class="btn btn-warning">Sửa</a></td>
+							</tr>
+
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+
+		</section>
+	</div>
+
+	<footer>
+		<div class="footer clearfix mb-0 text-muted">
+			<div class="float-start">
+				<p>2021 &copy; Mazer</p>
+			</div>
+
+		</div>
+	</footer>
+	<script
+		src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script>
+		// Simple Datatable
+		let table1 = document.querySelector('#table1');
+		let dataTable = new simpleDatatables.DataTable(table1);
+	</script>
+	<script>
+		function showInput() {
+			document.getElementById("inputBox").style.display = "block";
+		}
+	</script>
+	<script src="/assets/js/main.js"></script>
+</div>
+</html>
