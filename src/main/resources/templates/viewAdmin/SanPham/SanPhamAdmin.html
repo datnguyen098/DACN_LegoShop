@@ -44,7 +44,7 @@
 				<div class="card-header">Sản Phẩm</div>
 				<div class="card-body">
 				<a class="btn btn-success" th:href="@{/LegoShop/Admin/SanPham/Add}">Thêm Sản Phẩm</a>
-					<table class="table table-striped" id="table1">
+					<table class="table table-striped" id="table1" style="overflow-x: auto;">
 						<thead>
 							<tr>
 						<th>STT</th>
@@ -53,11 +53,13 @@
 								<th>Danh Mục</th>
 								<th>Mô Tả </th>
 								<th>Giá</th>
+								<th>Hình Ảnh Chính</th>
 								<th>Độ Tuổi Tối Thiểu</th>
 								<th>Số Mảnh</th>
 								<th>Năm Phát Hành</th>
 								<th>Trạng Thái</th>
 								<th> Hành Động</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -69,6 +71,7 @@
 								
 								<td th:text="${sp.moTa}">adfasdf</td>
 								<td th:text="${sp.gia}">ầdsf</td>
+								<td ><img alt="" width="150px" th:src="@{/uploads/{src}(src=${sp.AnhChinh})}"></td>
 								<td th:text="${sp.doTuoiToiThieu}">adfadf</td>
 								<td th:text="${sp.soManh}">adfa</td>
 								<td th:text="${sp.namPhatHanh}">ádfafda</td>
@@ -90,20 +93,7 @@
 		</section>
 	</div>
 
-	<footer>
-		<div class="footer clearfix mb-0 text-muted">
-			<div class="float-start">
-				<p>2021 &copy; Mazer</p>
-			</div>
-			<div class="float-end">
-				<p>
-					Crafted with <span class="text-danger"><i
-						class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
-						Saugi</a>
-				</p>
-			</div>
-		</div>
-	</footer>
+
 	 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
 

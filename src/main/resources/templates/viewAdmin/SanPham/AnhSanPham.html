@@ -1,124 +1,121 @@
-
 <div id="main" xmlns:th="http://www.thymeleaf.org">
-	<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataTable - Mazer Admin Dashboard</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DataTable - Mazer Admin Dashboard</title>
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/bootstrap.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link
+                href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+                rel="stylesheet">
+        <link rel="stylesheet" href="/assets/css/bootstrap.css">
 
-<link rel="stylesheet"
-	href="/assets/vendors/simple-datatables/style.css">
+        <link rel="stylesheet"
+              href="/assets/vendors/simple-datatables/style.css">
 
-<link rel="stylesheet"
-	href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet"
-	href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-<link rel="stylesheet" href="/assets/css/app.css">
-<link rel="shortcut icon" href="/assets/images/favicon.svg"
-	type="image/x-icon">
-	</head>
-	<header class="mb-3">
-		<a href="#" class="burger-btn d-block d-xl-none"> <i
-			class="bi bi-justify fs-3"></i>
-		</a>
-	</header>
+        <link rel="stylesheet"
+              href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet"
+              href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="/assets/css/app.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.svg"
+              type="image/x-icon">
+    </head>
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none"> <i
+                class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
 
-	<div class="page-heading">
-		<div class="page-title">
-			<div class="row">
-				<div class="col-12 col-md-6 order-md-1 order-last">
-					<h3>Quản Lý Ảnh</h3>
-				</div>
-				<div class="col-12 col-md-6 order-md-2 order-first">
-					<nav aria-label="breadcrumb"
-						class="breadcrumb-header float-start float-lg-end">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Sản
-								Phẩm</li>
-							<li class="breadcrumb-item active" aria-current="page">Ảnh
-								Sản Phẩm</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-		</div>
-		<section class="section">
-			<div class="card">
-				<div class="card-header">Ảnh sản phẩm</div>
-				<div class="card-body">
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Quản Lý Ảnh</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb"
+                         class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Sản
+                                Phẩm
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Ảnh
+                                Sản Phẩm
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+                <div class="card-header">Ảnh sản phẩm</div>
+                <div class="card-body">
 
-					<table class="table table-striped" id="table1">
-						<thead>
-							<tr>
-								<th>STT</th>
-								<th>Tên Sản Phẩm</th>
-								<th>Ảnh Chính</th>
-								<th>Ảnh 1</th>
-								<th>Ảnh 2</th>
-								<th>Ảnh 4</th>
-								<th>Ảnh 5</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>lego ninja go</td>
-								<td><label class="upload-box"> <input type="file"
-										name="anhChinh" hidden> <img
-										src="/images/no-image.png" class="preview">
-								</label></td>
-								<td><label class="upload-box"> <input type="file"
-										name="anh1" hidden> <img src="/images/no-image.png"
-										class="preview">
-								</label></td>
-								<td><label class="upload-box"> <input type="file"
-										name="anh1" hidden> <img src="/images/no-image.png"
-										class="preview">
-								</label></td>
-								<td><label class="upload-box"> <input type="file"
-										name="anh1" hidden> <img src="/images/no-image.png"
-										class="preview">
-								</label></td>
-								<td><label class="upload-box"> <input type="file"
-										name="anh1" hidden> <img src="/images/no-image.png"
-										class="preview">
-								</label> </td>
-
-
-
+                    <table class="table table-striped" id="table1">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Ảnh Chính</th>
+                            <th>Ảnh 1</th>
+                            <th>Ảnh 2</th>
+                            <th>Ảnh 4</th>
+                            <th>Ảnh 5</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>lego ninja go</td>
+                            <td><label class="upload-box"> <input type="file"
+                                                                  name="anhChinh" hidden> <img
+                                    src="/images/no-image.png" class="preview">
+                            </label></td>
+                            <td><label class="upload-box"> <input type="file"
+                                                                  name="anh1" hidden> <img src="/images/no-image.png"
+                                                                                           class="preview">
+                            </label></td>
+                            <td><label class="upload-box"> <input type="file"
+                                                                  name="anh1" hidden> <img src="/images/no-image.png"
+                                                                                           class="preview">
+                            </label></td>
+                            <td><label class="upload-box"> <input type="file"
+                                                                  name="anh1" hidden> <img src="/images/no-image.png"
+                                                                                           class="preview">
+                            </label></td>
+                            <td><label class="upload-box"> <input type="file"
+                                                                  name="anh1" hidden> <img src="/images/no-image.png"
+                                                                                           class="preview">
+                            </label></td>
 
 
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-		</section>
-	</div>
+        </section>
+    </div>
 
 
-	<script
-		src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script
+            src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
 
-	<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
-	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
-		let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
-	<script>
-		function showInput() {
-			document.getElementById("inputBox").style.display = "block";
-		}
-	</script>
-	<script src="/assets/js/main.js"></script>
+    <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+    <script>
+        function showInput() {
+            document.getElementById("inputBox").style.display = "block";
+        }
+    </script>
+    <script src="/assets/js/main.js"></script>
 </div>

@@ -38,7 +38,7 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form class="form" action="/LegoShop/Admin/SanPham/Store"
+									<form class="form" th:action="@{/LegoShop/Admin/SanPham/Store}"   enctype="multipart/form-data"
 										method="post" th:object="${model}">
 
 										<div class="row">
@@ -54,45 +54,49 @@
 
 
 												<div class="form-group">
-													<label for="ten">Mã Sản Phẩm</label> <input type="text"
+													<label >Mã Sản Phẩm</label> <input type="text"
 														class="form-control" placeholder="Mã Sản Phẩm" th:field="*{maSanPham}" 
-														 > <span class="text-danger"   th:if="${#fields.hasErrors('maSanPham')}" th:Errors="*{maSanPham}"></span>
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('maSanPham')}" th:errors="*{maSanPham}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Tên Sản Phẩm</label> <input type="text" th:field="*{tenSanPham}"
+													<label >Tên Sản Phẩm</label> <input type="text" th:field="*{tenSanPham}"
 														class="form-control" placeholder="Tên Sản Phẩm"
-														 > <span class="text-danger"  th:if="${#fields.hasErrors('tenSanPham')}" th:Errors="*{tenSanPham}"></span>
+														 > <span class="text-danger"  th:if="${#fields.hasErrors('tenSanPham')}" th:errors="*{tenSanPham}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Đường Dẫn</label> <input type="text" th:field="*{duongDan}"
+													<label >Đường Dẫn</label> <input type="text" th:field="*{duongDan}"
 														class="form-control" placeholder="Đường Dẫn"
-														 > <span class="text-danger"   th:if="${#fields.hasErrors('duongDan')}" th:Errors="*{duongDan}"></span>
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('duongDan')}" th:errors="*{duongDan}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Mô Tả</label> <input type="text" th:field="*{moTa}"
+													<label >Mô Tả</label> <input type="text" th:field="*{moTa}"
 														class="form-control" placeholder="Mô Tả"
-														 > <span class="text-danger"   th:if="${#fields.hasErrors('moTa')}" th:Errors="*{moTa}"></span>
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Giá</label> <input type="number" th:field="*{gia}"
+													<label >Giá</label> <input type="number" th:field="*{gia}"
 														class="form-control" placeholder="Giá"  >
-													<span class="text-danger"   th:if="${#fields.hasErrors('gia')}" th:Errors="*{gia}"></span>
+													<span class="text-danger"   th:if="${#fields.hasErrors('gia')}" th:errors="*{gia}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Độ Tuổi Tối Thiểu</label> <input th:field="*{doTuoiToiThieu}"
+													<label >Độ Tuổi Tối Thiểu</label> <input th:field="*{doTuoiToiThieu}"
 														type="text" class="form-control"
 														placeholder="Độ Tuổi Tối Thiểu"  >
-													<span class="text-danger"   th:if="${#fields.hasErrors('doTuoiToiThieu')}" th:Errors="*{doTuoiToiThieu}"></span>
+													<span class="text-danger"   th:if="${#fields.hasErrors('doTuoiToiThieu')}" th:errors="*{doTuoiToiThieu}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Số Mảnh</label> <input type="number" th:field="*{soManh}"
+													<label >Số Mảnh</label> <input type="number" th:field="*{soManh}"
 														class="form-control" placeholder="Số Mảnh"
-														 > <span class="text-danger"   th:if="${#fields.hasErrors('soManh')}" th:Errors="*{soManh}"></span>
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('soManh')}" th:errors="*{soManh}"></span>
 												</div>
 												<div class="form-group">
-													<label for="ten">Năm Phát Hành</label> <input type="number" th:field="*{namPhatHanh}"
+													<label >Năm Phát Hành</label> <input type="number" th:field="*{namPhatHanh}"
 														class="form-control" placeholder="Năm Phát Hành"
-														 > <span class="text-danger"   th:if="${#fields.hasErrors('namPhatHanh')}" th:Errors="*{namPhatHanh}"></span>
+														 > <span class="text-danger"   th:if="${#fields.hasErrors('namPhatHanh')}" th:errors="*{namPhatHanh}"></span>
+												</div>
+												<div class="form-group">
+												<label>Ảnh Chính</label>
+													<input type="file" name="file" class="form-control" required>
 												</div>
 											</div>
 											<div class="col-12 d-flex justify-content-end">
