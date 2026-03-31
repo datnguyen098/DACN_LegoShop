@@ -22,10 +22,8 @@ public class AnhSanPhamModel {
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "vui lòng điền đường dẫn của ảnh")
 	private String duongDanAnh;
-	@Column(name = "laAnhChinh", nullable = false)
-	private boolean laAnhChinh;
+
 	@Column(name = "thuTu", nullable = false)
 	private Integer thuTu;
 	@ManyToOne
