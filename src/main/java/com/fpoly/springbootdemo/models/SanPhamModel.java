@@ -2,6 +2,7 @@ package com.fpoly.springbootdemo.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 import jakarta.persistence.*;
@@ -60,6 +61,9 @@ public class SanPhamModel {
 	@OneToOne(mappedBy = "sanPham", fetch = FetchType.LAZY)
 	private TonKhoModel tonKho;
 
+
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AnhSanPhamModel> danhSachAnh;
 	private String AnhChinh;
 	   @PrePersist
 	    protected void onCreate() {

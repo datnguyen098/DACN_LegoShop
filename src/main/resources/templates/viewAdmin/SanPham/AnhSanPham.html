@@ -67,28 +67,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>lego ninja go</td>
+                        <tr th:each="ASP, stt : ${list}">
+                            <td th:text="${stt.count}">ádfasdf</td>
+                            <td th:text="${ASP.sanPham.tenSanPham}">ádfasd</td>
                             <td><label class="upload-box"> <input type="file"
-                                                                  name="anhChinh" hidden> <img
-                                    src="/images/no-image.png" class="preview">
-                            </label></td>
-                            <td><label class="upload-box"> <input type="file"
-                                                                  name="anh1" hidden> <img src="/images/no-image.png"
-                                                                                           class="preview">
-                            </label></td>
-                            <td><label class="upload-box"> <input type="file"
-                                                                  name="anh1" hidden> <img src="/images/no-image.png"
-                                                                                           class="preview">
-                            </label></td>
-                            <td><label class="upload-box"> <input type="file"
-                                                                  name="anh1" hidden> <img src="/images/no-image.png"
-                                                                                           class="preview">
-                            </label></td>
-                            <td><label class="upload-box"> <input type="file"
-                                                                  name="anh1" hidden> <img src="/images/no-image.png"
-                                                                                           class="preview">
+                                                                  name="anhChinh" hidden> <img alt="" width="150px"
+                                                                                                th:src="@{/uploads/{src}(src=${ASP.sanPham.AnhChinh})}">
                             </label></td>
 
 
