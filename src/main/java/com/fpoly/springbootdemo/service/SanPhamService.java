@@ -70,7 +70,6 @@ return lst;
 
 			Path filePath = uploadDir.resolve(fileName);
 			Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
 			// set tên file vào Model
 			sp.setAnhChinh(fileName);
 		}

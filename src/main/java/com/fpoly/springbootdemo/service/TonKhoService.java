@@ -5,6 +5,7 @@ import java.util.List;
 import com.fpoly.springbootdemo.models.TonKhoModel;
 import com.fpoly.springbootdemo.repositorys.TonKhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -16,7 +17,7 @@ public class TonKhoService {
 @Autowired
 TonKhoRepository tonKhoRe;
  public List<TonKhoModel> getAllTonKho(){
-	 return tonKhoRe.findAll();
+	 return tonKhoRe.findAll(Sort.by(Sort.Direction.DESC, "sanPhamId"));
  }
  @Transactional
  public void nhapHang(Long sanPhamId, int soLuongNhap) {
