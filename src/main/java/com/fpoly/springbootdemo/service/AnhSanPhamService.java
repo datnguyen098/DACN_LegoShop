@@ -75,4 +75,31 @@ public class AnhSanPhamService {
     public Optional<AnhSanPhamModel> getOne( Long id){
         return anhSanPhamRe.findById(id);
     }
+
+    @Transactional
+    public void deleteAnhByIds(List<Long> anhIds) throws IOException {
+        if (anhIds == null || anhIds.isEmpty()) return;
+
+        Path uploadDir = Paths.get(uploadPath).toAbsolutePath();
+
+        for (Long id : anhIds) {
+            if (id == null) continue;
+            Optional<AnhSanPhamModel> opt = anhSanPhamRe.findById(id);
+            if (opt.isEmpty()) continue;
+
+            AnhSanPhamModel anh = opt.get();
+            String fileName = anh.getDuongDanAnh();
+
+            // xóa DB trước/sau đều được; ưu tiên giữ DB sạch
+            anhSanPhamRe.deleteById(id);
+
+            if (fileName != null && !fileName.isBlank()) {
+                Path filePath = uploadDir.resolve(fileName).normalize();
+                // đảm bảo không thoát ra ngoài thư mục upload
+                if (filePath.startsWith(uploadDir) && Files.exists(filePath)) {
+                    Files.deleteIfExists(filePath);
+                }
+            }
+        }
+    }
 }

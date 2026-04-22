@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/LegoShop/Admin/SanPham/AnhSanPham")
 public class AnhSanPhamAdminController {
@@ -57,6 +59,19 @@ public class AnhSanPhamAdminController {
         model.addAttribute("list", anhSanPhamSer.getBySanPhamId(id));
         model.addAttribute("sanPhamId", id);
         return "viewAdmin/indexAdmin";
+    }
+
+    @PostMapping("/DeleteAnh")
+    public String deleteAnh(
+            @RequestParam("sanPhamId") Long sanPhamId,
+            @RequestParam("anhIds") List<Long> anhIds
+    ) {
+        try {
+            anhSanPhamSer.deleteAnhByIds(anhIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/LegoShop/Admin/SanPham/AnhSanPham/KhoAnh/" + sanPhamId;
     }
 }
 

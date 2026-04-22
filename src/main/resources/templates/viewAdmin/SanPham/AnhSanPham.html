@@ -70,34 +70,12 @@
                                          style="width:60px;height:60px;object-fit:cover;border-radius:6px">
                                     <span th:unless="${sp.anhChinh != null}" class="text-muted small">—</span>
                                 </td>
-<!--                                &lt;!&ndash; Nút thêm ảnh &ndash;&gt;-->
-<!--                                <td>-->
-<!--                                    <form th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/UploadAnh}"-->
-<!--                                          method="post" enctype="multipart/form-data">-->
-<!--                                        <input type="hidden" name="sanPhamId" th:value="${sp.id}">-->
-<!--                                        <label class="btn-add-img">+-->
-<!--                                            <input type="file" name="file" accept="image/*"-->
-<!--                                                   class="d-none" onchange="this.form.submit()">-->
-<!--                                        </label>-->
-<!--                                    </form>-->
-<!--                                </td>-->
+
                                 <td><a class="btn btn-success"
                                        th:href="@{/LegoShop/Admin/SanPham/AnhSanPham/KhoAnh/{id}(id=${sp.id})}">
                                     Kho Ảnh
                                 </a></td>
-<!--                                &lt;!&ndash; Ảnh phụ — lặp thẳng danhSachAnh &ndash;&gt;-->
-<!--                                <td th:each="anh : ${sp.danhSachAnh}">-->
-<!--                                    <form th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/UpdateAnh}"-->
-<!--                                          method="post" enctype="multipart/form-data">-->
-<!--                                        <input type="hidden" name="anhId" th:value="${anh.id}">-->
-<!--                                        <label class="img-click-wrap" title="Click để đổi ảnh">-->
-<!--                                            <img th:src="@{/uploads/{f}(f=${anh.duongDanAnh})}" alt="ảnh">-->
-<!--                                            <span class="edit-hint">✎</span>-->
-<!--                                            <input type="file" name="file" accept="image/*"-->
-<!--                                                   class="d-none" onchange="this.form.submit()">-->
-<!--                                        </label>-->
-<!--                                    </form>-->
-<!--                                </td>-->
+
 
 
 
