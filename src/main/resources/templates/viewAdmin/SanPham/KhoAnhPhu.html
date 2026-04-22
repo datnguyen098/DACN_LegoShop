@@ -1,0 +1,132 @@
+<div id="main" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DataTable - Mazer Admin Dashboard</title>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="/assets/css/bootstrap.css">
+
+        <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+
+        <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="/assets/css/app.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
+    </head>
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none"> <i
+                class="bi bi-justify fs-3"></i>
+        </a>
+
+    </header>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3> Ảnh Sản Phẩm</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb"
+                         class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a
+                                    th:href="@{/LegoShop/Admin/SanPham}">Sản Phẩm</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a
+                                    th:href="@{/LegoShop/Admin/SanPham/AnhSanPham}">Ảnh Sản Phẩm</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Kho Ảnh</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+
+                <div class="card-body">
+                    <a class="btn btn-primary" th:href="@{/LegoShop/Admin/SanPham/AnhSanPham}">Trở Lại</a>
+                    <a class="btn btn-success" th:href="@{/LegoShop/Admin/SanPham/Add}">Thêm Ảnh Sản Phẩm</a>
+
+                    <a href="#" class="btn btn-warning me-2" onclick="toggleSelect(event)">Chọn ảnh</a>
+                    <a th:onclick="return confirm('Bạn có chắc chắn muốn xóa không')" href="#" id="deleteBtn" class="btn btn-danger d-none" onclick="deleteSelected(event)">Xóa</a>
+
+                    <div class="row g-3 mt-3" th:if="${list != null and !list.isEmpty()}">
+                        <div class="col-6 col-md-4 col-lg-3" th:each="anh : ${list}">
+                            <div class="position-relative">
+
+                                <!-- checkbox -->
+                                <input type="checkbox"
+                                       class="form-check-input position-absolute top-0 start-0 m-2 d-none img-checkbox"
+                                       th:value="${anh.id}">
+                                <img th:src="@{/uploads/{f}(f=${anh.duongDanAnh})}"
+                                     class="img-fluid border-2"
+                                     style="height:120px; width:120px; object-fit:cover; cursor:pointer;"
+                                     onclick="showPreview(this.src)">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="imageModal">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-transparent border-0 p-0">
+
+                                <img id="previewImg"
+                                     class="img-fluid"
+                                     style="max-width:100%; max-height:90vh;">
+
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted mt-3"
+                       th:if="${list == null or list.isEmpty()}">
+                        Không có dữ liệu
+                    </p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+
+    <script src="/assets/js/main.js"></script>
+    <script>
+        function showPreview(src) {
+            document.getElementById("previewImg").src = src;
+
+            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+            modal.show();
+        }
+    </script>
+    <script>
+        function toggleSelect(e) {
+            e.preventDefault();
+
+            const checkboxes = document.querySelectorAll(".img-checkbox");
+            const deleteBtn = document.getElementById("deleteBtn");
+
+            checkboxes.forEach(cb => {
+                cb.classList.toggle("d-none");
+                cb.checked = false;
+            });
+
+
+            deleteBtn.classList.toggle("d-none");
+        }
+    </script>
+</div>
+</div>

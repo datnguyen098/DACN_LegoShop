@@ -37,7 +37,7 @@ document.querySelector('.sidebar-hide').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('active');
 
 })
-
+        
 
 // Perfect Scrollbar Init
 if(typeof PerfectScrollbar == 'function') {

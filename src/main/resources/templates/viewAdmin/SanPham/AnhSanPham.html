@@ -5,25 +5,23 @@
         <title>DataTable - Mazer Admin Dashboard</title>
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link
-                href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-                rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/assets/css/bootstrap.css">
 
-        <link rel="stylesheet"
-              href="/assets/vendors/simple-datatables/style.css">
+        <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
 
-        <link rel="stylesheet"
-              href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-        <link rel="stylesheet"
-              href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/assets/css/app.css">
-        <link rel="shortcut icon" href="/assets/images/favicon.svg"
-              type="image/x-icon">
+        <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
+
+        <!-- CSS riêng của trang này -->
+        <link rel="stylesheet" href="/assets/css/pages/anh-san-pham.css">
     </head>
+
     <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none"> <i
-                class="bi bi-justify fs-3"></i>
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
         </a>
     </header>
 
@@ -34,72 +32,94 @@
                     <h3>Quản Lý Ảnh</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
-                    <nav aria-label="breadcrumb"
-                         class="breadcrumb-header float-start float-lg-end">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sản
-                                Phẩm
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Ảnh
-                                Sản Phẩm
-                            </li>
+                            <li class="breadcrumb-item active">Sản Phẩm</li>
+                            <li class="breadcrumb-item active">Ảnh Sản Phẩm</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
+
         <section class="section">
             <div class="card">
                 <div class="card-header">Ảnh sản phẩm</div>
                 <div class="card-body">
+                    <div class="table-scroll">
+                        <table class="table table-striped align-middle" id="table1">
+                            <thead>
+                            <tr id="headerRow">
+                                <th>STT</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Ảnh Chính</th>
 
-                    <table class="table table-striped" id="table1">
-                        <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên Sản Phẩm</th>
-                            <th>Ảnh Chính</th>
-                            <th>Ảnh 1</th>
-                            <th>Ảnh 2</th>
-                            <th>Ảnh 4</th>
-                            <th>Ảnh 5</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="ASP, stt : ${list}">
-                            <td th:text="${stt.count}">ádfasdf</td>
-                            <td th:text="${ASP.sanPham.tenSanPham}">ádfasd</td>
-                            <td><label class="upload-box"> <input type="file"
-                                                                  name="anhChinh" hidden> <img alt="" width="150px"
-                                                                                                th:src="@{/uploads/{src}(src=${ASP.sanPham.AnhChinh})}">
-                            </label></td>
+                                <th> Kho Ảnh</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="sp, stt : ${list}">
+                                <td th:text="${stt.count}"></td>
+                                <td th:text="${sp.tenSanPham}"></td>
+
+                                <!-- Ảnh chính -->
+                                <td>
+                                    <img th:if="${sp.anhChinh != null}"
+                                         th:src="@{/uploads/{f}(f=${sp.anhChinh})}"
+                                         style="width:60px;height:60px;object-fit:cover;border-radius:6px">
+                                    <span th:unless="${sp.anhChinh != null}" class="text-muted small">—</span>
+                                </td>
+<!--                                &lt;!&ndash; Nút thêm ảnh &ndash;&gt;-->
+<!--                                <td>-->
+<!--                                    <form th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/UploadAnh}"-->
+<!--                                          method="post" enctype="multipart/form-data">-->
+<!--                                        <input type="hidden" name="sanPhamId" th:value="${sp.id}">-->
+<!--                                        <label class="btn-add-img">+-->
+<!--                                            <input type="file" name="file" accept="image/*"-->
+<!--                                                   class="d-none" onchange="this.form.submit()">-->
+<!--                                        </label>-->
+<!--                                    </form>-->
+<!--                                </td>-->
+                                <td><a class="btn btn-success"
+                                       th:href="@{/LegoShop/Admin/SanPham/AnhSanPham/KhoAnh/{id}(id=${sp.id})}">
+                                    Kho Ảnh
+                                </a></td>
+<!--                                &lt;!&ndash; Ảnh phụ — lặp thẳng danhSachAnh &ndash;&gt;-->
+<!--                                <td th:each="anh : ${sp.danhSachAnh}">-->
+<!--                                    <form th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/UpdateAnh}"-->
+<!--                                          method="post" enctype="multipart/form-data">-->
+<!--                                        <input type="hidden" name="anhId" th:value="${anh.id}">-->
+<!--                                        <label class="img-click-wrap" title="Click để đổi ảnh">-->
+<!--                                            <img th:src="@{/uploads/{f}(f=${anh.duongDanAnh})}" alt="ảnh">-->
+<!--                                            <span class="edit-hint">✎</span>-->
+<!--                                            <input type="file" name="file" accept="image/*"-->
+<!--                                                   class="d-none" onchange="this.form.submit()">-->
+<!--                                        </label>-->
+<!--                                    </form>-->
+<!--                                </td>-->
 
 
-                        </tr>
-                        </tbody>
-                    </table>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </section>
     </div>
 
-
-    <script
-            src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="/assets/js/main.js"></script>
     <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
-    <script>
-        function showInput() {
-            document.getElementById("inputBox").style.display = "block";
-        }
-    </script>
-    <script src="/assets/js/main.js"></script>
+    <!-- JS riêng của trang này — đặt cuối cùng -->
+    <script src="/assets/js/pages/anh-san-pham.js"></script>
+
 </div>
