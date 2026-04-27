@@ -13,7 +13,6 @@ import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
 @Controller
-
 @RequestMapping("/LegoShop/Admin/DanhMuc")
 public class DanhMucAdminController {
 	@Autowired
