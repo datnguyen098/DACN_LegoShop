@@ -10,15 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/LegoShop/Admin/SanPham")
+@RequestMapping("/legoshop/admin/sanpham")
 public class SanPhamAdminController {
+
     @Autowired
     SanPhamService sanPhamSer;
+
     @Autowired
     DanhMucService danhMucSer;
 
@@ -32,10 +33,10 @@ public class SanPhamAdminController {
     @GetMapping("/toggle/{id}")
     public String toggle(@PathVariable("id") Long id) {
         sanPhamSer.doiTrangThai(id);
-        return "redirect:/LegoShop/Admin/SanPham";
+        return "redirect:/legoshop/admin/sanpham";
     }
 
-    @GetMapping("/Add")
+    @GetMapping("/add")
     public String formAddSanPham(Model model) {
         model.addAttribute("model", new SanPhamModel());
         model.addAttribute("list", danhMucSer.getAllDanhMuc());
@@ -43,8 +44,12 @@ public class SanPhamAdminController {
         return "viewAdmin/indexAdmin";
     }
 
-    @PostMapping("/Store")
-    public String addSanPham(Model model, @Valid @ModelAttribute("model") SanPhamModel sanPham, BindingResult result, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    @PostMapping("/store")
+    public String addSanPham(Model model,
+                             @Valid @ModelAttribute("model") SanPhamModel sanPham,
+                             BindingResult result,
+                             @RequestParam("file") MultipartFile file,
+                             HttpServletRequest request) {
         try {
             if (result.hasErrors()) {
                 System.out.println("VALIDATION ERROR");
@@ -55,10 +60,10 @@ public class SanPhamAdminController {
                 System.out.println("FILE NAME: " + file.getOriginalFilename());
                 return "viewAdmin/indexAdmin";
             }
-            sanPhamSer.addSanPham(sanPham,file);
-            return "redirect:/LegoShop/Admin/SanPham";
+            sanPhamSer.addSanPham(sanPham, file);
+            return "redirect:/legoshop/admin/sanpham";
         } catch (Exception e) {
-            e.printStackTrace(); // in lỗi ra console
+            e.printStackTrace();
             System.out.println("có lỗi ở:" + e.getMessage());
 
             model.addAttribute("list", danhMucSer.getAllDanhMuc());
@@ -66,11 +71,9 @@ public class SanPhamAdminController {
 
             return "viewAdmin/indexAdmin";
         }
-
-
     }
 
-    @GetMapping("/Edit/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("model", sanPhamSer.showSanPham(id));
         model.addAttribute("list", danhMucSer.getAllDanhMuc());
@@ -78,10 +81,9 @@ public class SanPhamAdminController {
         return "viewAdmin/indexAdmin";
     }
 
-    @PostMapping("/Edit")
+    @PostMapping("/edit")
     public String updateSanPham(Model model, @ModelAttribute("model") SanPhamModel sanPham) {
-
         sanPhamSer.updateSanPham(sanPham);
-        return "redirect:/LegoShop/Admin/SanPham";
+        return "redirect:/legoshop/admin/sanpham";
     }
 }

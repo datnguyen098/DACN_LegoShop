@@ -32,7 +32,9 @@
 					<nav aria-label="breadcrumb"
 						class="breadcrumb-header float-start float-lg-end">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+							<li class="breadcrumb-item">
+								<a th:href="@{/legoshop/admin}">Admin</a>
+							</li>
 							<li class="breadcrumb-item active" aria-current="page">Sản Phẩm</li>
 						</ol>
 					</nav>
@@ -43,7 +45,10 @@
 			<div class="card">
 				<div class="card-header">Sản Phẩm</div>
 				<div class="card-body">
-				<a class="btn btn-success" th:href="@{/LegoShop/Admin/SanPham/Add}">Thêm Sản Phẩm</a>
+					<a class="btn btn-success"
+					   th:href="@{/legoshop/admin/sanpham/add}">
+						Thêm Sản Phẩm
+					</a>
 					<table class="table table-striped" id="table1" style="overflow-x: auto;">
 						<thead>
 							<tr>
@@ -76,12 +81,15 @@
 								<td th:text="${sp.soManh}">adfa</td>
 								<td th:text="${sp.namPhatHanh}">ádfafda</td>
 								<td th:text="${sp.trangThai == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}">ádfasdfasd</td>
-								<td ><a
-								th:href="@{/LegoShop/Admin/SanPham/toggle/{id}(id=${sp.id})}"
-								 th:text="${sp.trangThai} == 'DANG_BAN' ? 'Ẩn' : 'Hiện'"
-									th:classappend="${sp.trangThai} == 'DANG_BAN' ? 'btn btn-warning' : 'btn btn-success'"
-									class="btn"></a>
-									<a class="btn btn-secondary" th:href="@{/LegoShop/Admin/SanPham/Edit/{id}(id=${sp.id})}" >Sửa</a></td>
+								<td ><a th:href="@{/legoshop/admin/sanpham/toggle/{id}(id=${sp.id})}"
+										th:text="${sp.trangThai} == 'DANG_BAN' ? 'Ẩn' : 'Hiện'"
+										th:classappend="${sp.trangThai} == 'DANG_BAN' ? 'btn btn-warning' : 'btn btn-success'"
+										class="btn">
+								</a>
+									<a class="btn btn-secondary"
+									   th:href="@{/legoshop/admin/sanpham/edit/{id}(id=${sp.id})}">
+										Sửa
+									</a></td>
 																
 								
 							</tr>

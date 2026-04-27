@@ -33,7 +33,9 @@
 					<nav aria-label="breadcrumb"
 						class="breadcrumb-header float-start float-lg-end">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+							<li class="breadcrumb-item">
+								<a th:href="@{/legoshop/admin}">Admin</a>
+							</li>
 							<li class="breadcrumb-item active" aria-current="page">Sản
 								Phẩm</li>
 							<li class="breadcrumb-item active" aria-current="page">Tồn
@@ -67,8 +69,8 @@
 								<td
 									th:text="${tk.sanPham.getTrangThai() == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}">ầdsf</td>
 								<td>
-									<form th:action="@{/LegoShop/Admin/SanPham/TonKho/nhap}"
-										method="post" class="d-flex gap-2">
+									<form th:action="@{/legoshop/admin/sanpham/tonkho/nhap}"
+										  method="post" class="d-flex gap-2">
 										<input type="hidden" name="sanPhamId"
 											th:value="${tk.sanPham.id}" /> <input type="number"
 											class="form-control" name="soLuongNhap" min="1"

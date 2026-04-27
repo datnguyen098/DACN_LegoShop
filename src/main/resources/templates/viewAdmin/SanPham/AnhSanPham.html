@@ -34,7 +34,9 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/legoshop/admin}">Admin</a>
+                            </li>
                             <li class="breadcrumb-item active">Sản Phẩm</li>
                             <li class="breadcrumb-item active">Ảnh Sản Phẩm</li>
                         </ol>
@@ -71,11 +73,12 @@
                                     <span th:unless="${sp.anhChinh != null}" class="text-muted small">—</span>
                                 </td>
 
-                                <td><a class="btn btn-success"
-                                       th:href="@{/LegoShop/Admin/SanPham/AnhSanPham/KhoAnh/{id}(id=${sp.id})}">
-                                    Kho Ảnh
-                                </a></td>
-
+                                <td>
+                                    <a class="btn btn-success"
+                                       th:href="@{/legoshop/admin/sanpham/anhsanpham/khoanh/{id}(id=${sp.id})}">
+                                        Kho Ảnh
+                                    </a>
+                                </td>
 
 
 

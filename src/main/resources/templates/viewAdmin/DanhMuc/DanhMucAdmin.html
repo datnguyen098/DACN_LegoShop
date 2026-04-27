@@ -40,7 +40,9 @@
 					<nav aria-label="breadcrumb"
 						class="breadcrumb-header float-start float-lg-end">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
+							<li class="breadcrumb-item">
+								<a th:href="@{/legoshop/admin}">Admin</a>
+							</li>
 							<li class="breadcrumb-item active" aria-current="page">Danh
 								Mục</li>
 						</ol>
@@ -52,8 +54,10 @@
 			<div class="card">
 				<div class="card-header">Danh Mục Sản Phẩm</div>
 				<div class="card-body">
-					<a class="btn btn-success" href="/LegoShop/Admin/DanhMuc/Add">Thêm
-						Danh Mục</a>
+					<a class="btn btn-success"
+					   th:href="@{/legoshop/admin/danhmuc/add}">
+						Thêm Danh Mục
+					</a>
 					<table class="table table-striped" id="table1">
 						<thead>
 							<tr>
@@ -70,13 +74,14 @@
 								<td th:text="${dm.tenDanhMuc}">vehicula.aliquet@semconsequat.co.uk</td>
 								<td th:text="${dm.duongDan}">076 4820 8838</td>
 								<td th:text="${dm.trangThai == true ? 'Đang Sử Dụng':'Đã Ẩn'}">Offenburg</td>
-								<td><a
-									th:href="@{/LegoShop/Admin/DanhMuc/toggle/{id}(id=${dm.id})}"
-									th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
-									th:classappend="${dm.trangThai} ? 'btn btn-warning' : 'btn btn-success'"
-									class="btn"> </a> <a
-									th:href="@{/LegoShop/Admin/DanhMuc/Edit/{id}(id=${dm.id})}"
-									class="btn btn-warning">Sửa</a></td>
+								<td><a th:href="@{/legoshop/admin/danhmuc/toggle/{id}(id=${dm.id})}"
+									   th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
+									   th:classappend="${dm.trangThai} ? 'btn btn-warning' : 'btn btn-success'"
+									   class="btn">
+								</a> <a th:href="@{/legoshop/admin/danhmuc/edit/{id}(id=${dm.id})}"
+										class="btn btn-warning">
+									Sửa
+								</a></td>
 							</tr>
 
 						</tbody>

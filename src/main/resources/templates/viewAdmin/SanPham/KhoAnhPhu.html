@@ -33,12 +33,15 @@
                     <nav aria-label="breadcrumb"
                          class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a th:href="@{/LegoShop/Admin}">Admin</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a
-                                    th:href="@{/LegoShop/Admin/SanPham}">Sản Phẩm</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a
-                                    th:href="@{/LegoShop/Admin/SanPham/AnhSanPham}">Ảnh Sản Phẩm</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Kho Ảnh</li>
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/legoshop/admin}">Admin</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/legoshop/admin/sanpham}">Sản Phẩm</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a th:href="@{/legoshop/admin/sanpham/anhsanpham}">Ảnh Sản Phẩm</a>
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -49,11 +52,12 @@
 
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-2">
-                        <a class="btn btn-primary" th:href="@{/LegoShop/Admin/SanPham/AnhSanPham}">
+                        <a class="btn btn-primary"
+                           th:href="@{/legoshop/admin/sanpham/anhsanpham}">
                             Trở Lại
                         </a>
 
-                        <form th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/UploadAnh}"
+                        <form th:action="@{/legoshop/admin/sanpham/anhsanpham/uploadanh}"
                               method="post" enctype="multipart/form-data">
                             <input type="hidden" name="sanPhamId" th:value="${sanPhamId}">
 
@@ -68,7 +72,7 @@
                             Chọn ảnh
                         </a>
                         <form id="deleteForm" class="d-inline"
-                              th:action="@{/LegoShop/Admin/SanPham/AnhSanPham/DeleteAnh}"
+                              th:action="@{/legoshop/admin/sanpham/anhsanpham/deleteanh}"
                               method="post">
                             <input type="hidden" name="sanPhamId" th:value="${sanPhamId}">
                             <button type="submit" id="deleteBtn" class="btn btn-danger d-none">Xóa</button>

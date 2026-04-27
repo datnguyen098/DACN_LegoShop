@@ -12,66 +12,62 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Controller
-@RequestMapping("/LegoShop/Admin/SanPham/AnhSanPham")
+@RequestMapping("/legoshop/admin/sanpham/anhsanpham")
 public class AnhSanPhamAdminController {
+
     @Autowired
     AnhSanPhamService anhSanPhamSer;
+
     @Autowired
     SanPhamService sanPhamSer;
 
+    // Danh sách
     @GetMapping("")
     public String getAllAnhSanPham(Model model) {
         model.addAttribute("list", sanPhamSer.getAllSanPham());
-
         model.addAttribute("content", "viewAdmin/SanPham/AnhSanPham");
         System.out.println("SIZE = " + anhSanPhamSer.getAll().size());
         return "viewAdmin/indexAdmin";
     }
 
-    @PostMapping("/UploadAnh")
+    // Upload ảnh
+    @PostMapping("/upload")
     public String uploadAnh(
             @RequestParam("sanPhamId") Long sanPhamId,
             @RequestParam("file") MultipartFile file) {
+
         try {
             anhSanPhamSer.uploadAnh(sanPhamId, file);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/LegoShop/Admin/SanPham/AnhSanPham";
+
+        return "redirect:/legoshop/admin/sanpham/anhsanpham";
     }
 
-    // ── SỬA ẢNH ──
-    @PostMapping("/UpdateAnh")
-    public String updateAnh(
-            @RequestParam("anhId") Long anhId,
-            @RequestParam("file") MultipartFile file) {
-        try {
-            anhSanPhamSer.updateAnh(anhId, file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/LegoShop/Admin/SanPham/AnhSanPham";
-    }
-    @GetMapping("/KhoAnh/{id}")
-    public String KhoAnh(Model model, @PathVariable Long id){
+
+
+    // 🔹 Kho ảnh
+    @GetMapping("/khoanh/{id}")
+    public String khoAnh(Model model, @PathVariable Long id) {
         model.addAttribute("content", "viewAdmin/SanPham/KhoAnhPhu");
-        // id ở đây là sanPhamId => lấy toàn bộ ảnh của sản phẩm
         model.addAttribute("list", anhSanPhamSer.getBySanPhamId(id));
         model.addAttribute("sanPhamId", id);
         return "viewAdmin/indexAdmin";
     }
 
-    @PostMapping("/DeleteAnh")
+    // Delete ảnh
+    @PostMapping("/delete")
     public String deleteAnh(
             @RequestParam("sanPhamId") Long sanPhamId,
-            @RequestParam("anhIds") List<Long> anhIds
-    ) {
+            @RequestParam("anhIds") List<Long> anhIds) {
+
         try {
             anhSanPhamSer.deleteAnhByIds(anhIds);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/LegoShop/Admin/SanPham/AnhSanPham/KhoAnh/" + sanPhamId;
+
+        return "redirect:/legoshop/admin/sanpham/anhsanpham/khoanh/" + sanPhamId;
     }
 }
-
