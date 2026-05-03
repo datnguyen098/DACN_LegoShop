@@ -24,7 +24,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/legoshop", "/login", "/do-login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers(
+                                "/legoshop/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/webjars/**",
+                                "/assets/**"
+                        ).permitAll()
                         .requestMatchers("/legoshop/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

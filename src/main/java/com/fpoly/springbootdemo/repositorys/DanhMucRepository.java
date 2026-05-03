@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
 
 @Repository
@@ -15,4 +16,8 @@ public interface DanhMucRepository extends JpaRepository<DanhMucModel, Long> {
     @Modifying
     @Query("update DanhMucModel d set d.trangThai = :status where d.id = :id")
     int updateTrangThai(@Param("id") Long id, @Param("status") boolean status);
+
+    @Query("select dm.tenDanhMuc from DanhMucModel dm where dm.trangThai = true")
+    List<String> findAllTenDanhMuc();
+
 }
