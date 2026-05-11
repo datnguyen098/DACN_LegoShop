@@ -45,11 +45,9 @@ return lst;
 
 	@Transactional
 	public void doiTrangThai(Long id) {
-		SanPhamModel sp = sanPhamRe.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
-
-		String newStatus = sp.getTrangThai().equals("DANG_BAN") ? "NGUNG_BAN" : "DANG_BAN";
-
-		sanPhamRe.updateTrangThai(id, newStatus);
+	SanPhamModel sanPham = sanPhamRe.findById(id).orElseThrow(()-> new RuntimeException("không tìm thấy"));
+		sanPham.setTrangThai(sanPham.getTrangThai().equals("DANG_BAN")? "NGUNG_BAN": "DANG_BAN");
+	sanPhamRe.save(sanPham);
 	}
 	@Value("${upload.path}")
 	private String uploadPath;
@@ -130,5 +128,8 @@ return lst;
 		sp.setSoManh(sanPham.getSoManh());
 		sp.setNamPhatHanh(sanPham.getNamPhatHanh());
 		sanPhamRe.save(sp);
+	}
+	public SanPhamModel findById(Long id){
+		return sanPhamRe.findById(id).orElse(null);
 	}
 }

@@ -5,6 +5,7 @@ import com.fpoly.springbootdemo.service.DanhMucService;
 import com.fpoly.springbootdemo.service.SanPhamService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/legoshop/admin/sanpham")
@@ -30,10 +33,12 @@ public class SanPhamAdminController {
         return "viewAdmin/indexAdmin";
     }
 
-    @GetMapping("/toggle/{id}")
-    public String toggle(@PathVariable("id") Long id) {
+    @GetMapping("/toggle/{id}/ajax")
+    @ResponseBody
+    public ResponseEntity<?> toggle(@PathVariable("id") Long id) {
         sanPhamSer.doiTrangThai(id);
-        return "redirect:/legoshop/admin/sanpham";
+       SanPhamModel sanPham = sanPhamSer.findById(id);
+      return ResponseEntity.ok(Map.of("trangThai", sanPham.getTrangThai()));
     }
 
     @GetMapping("/add")

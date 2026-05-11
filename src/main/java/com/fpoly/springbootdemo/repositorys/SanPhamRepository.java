@@ -13,10 +13,6 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPhamModel, Long> {
-	@Modifying
-	@Transactional
-	@Query("update SanPhamModel s set s.trangThai = :status where s.id = :id")
-	int updateTrangThai(@Param("id") Long id,
-	                    @Param("status") String status);
+
 
 }

@@ -76,16 +76,29 @@
 								
 								<td th:text="${sp.moTa}">adfasdf</td>
 								<td th:text="${sp.gia}">ầdsf</td>
-								<td ><img alt="" width="150px" th:src="@{/uploads/{src}(src=${sp.AnhChinh})}"></td>
+								<td ><img alt="" width="150px" th:src="@{/uploads/{src}(src=${sp.AnhChinh})}" class="img-fluid border-2"
+										  style="height:120px; width:120px; object-fit:cover; cursor:pointer;"  onclick="showPreview(this.src)"></td>
+								<div class="modal fade" id="imageModal">
+									<div class="modal-dialog modal-dialog-centered modal-lg">
+										<div class="modal-content bg-transparent border-0 p-0">
+
+											<img id="previewImg"
+												 class="img-fluid"
+												 style="max-width: 90vw; max-height: 90vh; object-fit: contain;"    >
+
+										</div>
+									</div>
+								</div>
 								<td th:text="${sp.doTuoiToiThieu}">adfadf</td>
 								<td th:text="${sp.soManh}">adfa</td>
 								<td th:text="${sp.namPhatHanh}">ádfafda</td>
 								<td th:text="${sp.trangThai == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}">ádfasdfasd</td>
-								<td ><a th:href="@{/legoshop/admin/sanpham/toggle/{id}(id=${sp.id})}"
-										th:text="${sp.trangThai} == 'DANG_BAN' ? 'Ẩn' : 'Hiện'"
-										th:classappend="${sp.trangThai} == 'DANG_BAN' ? 'btn btn-warning' : 'btn btn-success'"
-										class="btn">
-								</a>
+								<td ><button type="button"
+											 th:attr="data-id=${sp.id}, data-trangthai=${sp.trangThai}"
+										th:text="${sp.trangThai == 'DANG_BAN'} ? 'Ẩn' : 'Hiện'"
+										th:classappend="${sp.trangThai == 'DANG_BAN'} ? 'btn btn-warning' : 'btn btn-success'"
+										class="btn btn-toggle-status">
+								</button>
 									<a class="btn btn-secondary"
 									   th:href="@{/legoshop/admin/sanpham/edit/{id}(id=${sp.id})}">
 										Sửa
@@ -113,5 +126,50 @@
     </script>
 
     <script src="/assets/js/main.js"></script>
+	<script>
 
+		document.addEventListener('click', function(e) {
+			const btn = e.target.closest('.btn-toggle-status');
+			if (!btn) return;
+
+			e.preventDefault();
+
+			const id = btn.dataset.id;
+
+			fetch(`/legoshop/admin/sanpham/toggle/${id}/ajax`)
+					.then(res => res.json())
+					.then(data => {
+						console.log('Server trả về:', data.trangThai);
+
+						const trangThai = data.trangThai === 'DANG_BAN';
+
+						// Cập nhật data-trangthai (quan trọng!)
+						btn.dataset.trangthai = data.trangThai;
+
+						btn.textContent = trangThai ? 'Ẩn' : 'Hiện';
+
+						btn.classList.remove('btn-warning', 'btn-success');
+						btn.classList.add(trangThai ? 'btn-warning' : 'btn-success');
+
+						// Cập nhật cột trạng thái
+						const row = btn.closest('tr');
+						if (row) {
+							const cell = row.querySelector('td:nth-child(11)');
+							if (cell) {
+								cell.textContent = trangThai ? 'Đang Bán' : 'Ngừng Bán';
+							}
+						}
+					})
+					.catch(err => console.error(err));
+		});
+	</script>
+
+	<script>
+		function showPreview(src) {
+			document.getElementById("previewImg").src = src;
+
+			const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+			modal.show();
+		}
+	</script>
 </div>

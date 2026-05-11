@@ -19,57 +19,55 @@ import java.util.Map;
 @RequestMapping("/legoshop/admin/danhmuc")
 public class DanhMucAdminController {
 
-	@Autowired
-	DanhMucService danhMucSer;
+    @Autowired
+    DanhMucService danhMucSer;
 
-	@GetMapping("")
-	public String adminDanhMuc(Model model) {
-		model.addAttribute("list", danhMucSer.getAllDanhMuc());
-		model.addAttribute("content", "viewAdmin/DanhMuc/DanhMucAdmin.html");
-		return "viewAdmin/indexAdmin";
-	}
+    @GetMapping("")
+    public String adminDanhMuc(Model model) {
+        model.addAttribute("list", danhMucSer.getAllDanhMuc());
+        model.addAttribute("content", "viewAdmin/DanhMuc/DanhMucAdmin.html");
+        return "viewAdmin/indexAdmin";
+    }
 
-	@GetMapping("/add")
-	public String formThemDanhMuc(Model model) {
-		model.addAttribute("content", "viewAdmin/DanhMuc/addDanhMuc.html");
-		model.addAttribute("model", new DanhMucModel());
-		return "viewAdmin/indexAdmin";
-	}
+    @GetMapping("/add")
+    public String formThemDanhMuc(Model model) {
+        model.addAttribute("content", "viewAdmin/DanhMuc/addDanhMuc.html");
+        model.addAttribute("model", new DanhMucModel());
+        return "viewAdmin/indexAdmin";
+    }
 
-	@PostMapping("/store")
-	public String addDanhMuc(Model model, @Valid @ModelAttribute("model") DanhMucModel danhMuc, BindingResult result) {
-		if (result.hasErrors()) {
-			model.addAttribute("content", "viewAdmin/DanhMuc/addDanhMuc.html");
-			return "viewAdmin/indexAdmin";
-		}
-		danhMucSer.addDanhMuc(danhMuc);
-		return "redirect:/legoshop/admin/danhmuc";
-	}
-// đổi trạng thái nút
-	@GetMapping("/toggle/{id}/ajax")
-	@ResponseBody
-	public ResponseEntity<?> toggle(
-			@PathVariable("id") Long id) {
+    @PostMapping("/store")
+    public String addDanhMuc(Model model, @Valid @ModelAttribute("model") DanhMucModel danhMuc, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("content", "viewAdmin/DanhMuc/addDanhMuc.html");
+            return "viewAdmin/indexAdmin";
+        }
+        danhMucSer.addDanhMuc(danhMuc);
+        return "redirect:/legoshop/admin/danhmuc";
+    }
 
-		danhMucSer.doiTrangThai(id);
-		DanhMucModel dm = danhMucSer.findById(id);
+    // đổi trạng thái nút
+    @GetMapping("/toggle/{id}/ajax")
+    @ResponseBody
+    public ResponseEntity<?> toggle(
+            @PathVariable("id") Long id) {
+        danhMucSer.doiTrangThai(id);
+        DanhMucModel dm = danhMucSer.findById(id);
+        return ResponseEntity.ok(
+                Map.of("trangThai",
+                        dm.getTrangThai()));
+    }
 
-		System.out.println(dm.getTrangThai());
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("model", danhMucSer.showDanhMuc(id));
+        model.addAttribute("content", "viewAdmin/DanhMuc/editDanhMuc.html");
+        return "viewAdmin/indexAdmin";
+    }
 
-		return ResponseEntity.ok(
-				Map.of("trangThai",
-						dm.getTrangThai()));
-	}
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("model", danhMucSer.showDanhMuc(id));
-		model.addAttribute("content", "viewAdmin/DanhMuc/editDanhMuc.html");
-		return "viewAdmin/indexAdmin";
-	}
-
-	@PostMapping("/edit")
-	public String upDateDanhMuc(Model model, @ModelAttribute("model") DanhMucModel danhMuc) {
-		danhMucSer.UpdateDanhMuc(danhMuc);
-		return "redirect:/legoshop/admin/danhmuc";
-	}
+    @PostMapping("/edit")
+    public String upDateDanhMuc(Model model, @ModelAttribute("model") DanhMucModel danhMuc) {
+        danhMucSer.UpdateDanhMuc(danhMuc);
+        return "redirect:/legoshop/admin/danhmuc";
+    }
 }
