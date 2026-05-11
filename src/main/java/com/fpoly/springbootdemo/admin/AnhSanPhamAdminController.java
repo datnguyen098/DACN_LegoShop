@@ -31,7 +31,7 @@ public class AnhSanPhamAdminController {
     }
 
     // Upload ảnh
-    @PostMapping("/upload")
+    @PostMapping("/uploadanh")
     public String uploadAnh(
             @RequestParam("sanPhamId") Long sanPhamId,
             @RequestParam("file") MultipartFile file) {
@@ -57,7 +57,7 @@ public class AnhSanPhamAdminController {
     }
 
     // Delete ảnh
-    @PostMapping("/delete")
+    @PostMapping("/deleteanh")
     public String deleteAnh(
             @RequestParam("sanPhamId") Long sanPhamId,
             @RequestParam("anhIds") List<Long> anhIds) {

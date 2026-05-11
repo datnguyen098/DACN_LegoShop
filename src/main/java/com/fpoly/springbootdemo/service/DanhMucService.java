@@ -22,14 +22,18 @@ public List<DanhMucModel> getAllDanhMuc(){
 public void addDanhMuc(DanhMucModel danhMuc) {
 	danhMucRe.save(danhMuc);
 }
-@Transactional
-public void doiTrangThai(Long id) {
-    DanhMucModel dm = danhMucRe.findById(id)
-            .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục"));
+// đổi trạng thái nút
+	@Transactional
+	public void doiTrangThai(Long id) {
 
-    boolean newStatus = !dm.getTrangThai();   // đảo trạng thái
-    danhMucRe.updateTrangThai(id, newStatus);
-}
+		DanhMucModel dm = danhMucRe.findById(id)
+				.orElseThrow(() ->
+						new RuntimeException("Không tìm thấy"));
+
+		dm.setTrangThai(!dm.getTrangThai());
+
+		danhMucRe.save(dm);
+	}
 public Optional<DanhMucModel> showDanhMuc(Long id){
 	return danhMucRe.findById(id);
 }
@@ -41,5 +45,8 @@ public void UpdateDanhMuc(DanhMucModel danhMuc) {
 		danhMucModel.setDuongDan(danhMuc.getDuongDan());
 		danhMucRe.save(danhMucModel);
 	}
+}
+public  DanhMucModel findById(Long id){
+	return danhMucRe.findById(id).orElse(null);
 }
 }

@@ -3,6 +3,8 @@ package com.fpoly.springbootdemo.admin;
 import com.fpoly.springbootdemo.models.DanhMucModel;
 import com.fpoly.springbootdemo.service.DanhMucService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/legoshop/admin/danhmuc")
@@ -41,13 +45,21 @@ public class DanhMucAdminController {
 		danhMucSer.addDanhMuc(danhMuc);
 		return "redirect:/legoshop/admin/danhmuc";
 	}
+// đổi trạng thái nút
+	@GetMapping("/toggle/{id}/ajax")
+	@ResponseBody
+	public ResponseEntity<?> toggle(
+			@PathVariable("id") Long id) {
 
-	@GetMapping("/toggle/{id}")
-	public String toggle(@PathVariable("id") Long id) {
 		danhMucSer.doiTrangThai(id);
-		return "redirect:/legoshop/admin/danhmuc";
-	}
+		DanhMucModel dm = danhMucSer.findById(id);
 
+		System.out.println(dm.getTrangThai());
+
+		return ResponseEntity.ok(
+				Map.of("trangThai",
+						dm.getTrangThai()));
+	}
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("model", danhMucSer.showDanhMuc(id));

@@ -70,15 +70,17 @@
 						</thead>
 						<tbody>
 							<tr th:each="dm, stt : ${list}">
-								<td th:text="${stt.count}">Graiden</td>
-								<td th:text="${dm.tenDanhMuc}">vehicula.aliquet@semconsequat.co.uk</td>
-								<td th:text="${dm.duongDan}">076 4820 8838</td>
-								<td th:text="${dm.trangThai == true ? 'Đang Sử Dụng':'Đã Ẩn'}">Offenburg</td>
-								<td><a th:href="@{/legoshop/admin/danhmuc/toggle/{id}(id=${dm.id})}"
-									   th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
-									   th:classappend="${dm.trangThai} ? 'btn btn-warning' : 'btn btn-success'"
-									   class="btn">
-								</a> <a th:href="@{/legoshop/admin/danhmuc/edit/{id}(id=${dm.id})}"
+								<td th:text="${stt.count}"></td>
+								<td th:text="${dm.tenDanhMuc}"></td>
+								<td th:text="${dm.duongDan}"></td>
+								<td th:text="${dm.trangThai == true ? 'Đang Sử Dụng':'Đã Ẩn'}"></td>
+								<td><button
+										type="button"
+										th:attr="data-id=${dm.id}, data-trangthai=${dm.trangThai}"
+										th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
+										th:classappend="${dm.trangThai} ? 'btn-warning' : 'btn-success'"
+										class="btn btn-toggle-status">
+								</button> <a th:href="@{/legoshop/admin/danhmuc/edit/{id}(id=${dm.id})}"
 										class="btn btn-warning">
 									Sửa
 								</a></td>
@@ -108,7 +110,43 @@
 		function showInput() {
 			document.getElementById("inputBox").style.display = "block";
 		}
+
+		function edit() {
+			event.preventDefault();
+		}
 	</script>
 	<script src="/assets/js/main.js"></script>
+	<script>
+		document.addEventListener('click', function(e) {
+
+			const btn = e.target.closest('.btn-toggle-status');
+
+			if (!btn) return;
+
+			const id = btn.dataset.id;
+
+			fetch(`/legoshop/admin/danhmuc/toggle/${id}/ajax`)
+					.then(res => res.json())
+					.then(data => {
+						console.log('Server trả về:', data.trangThai, typeof data.trangThai);
+
+						const trangThai = data.trangThai === true;
+						console.log('trangThai sau ép kiểu:', trangThai);
+
+						btn.textContent = trangThai ? 'Ẩn' : 'Hiện';
+						btn.className = trangThai
+								? 'btn btn-warning btn-toggle-status'
+								: 'btn btn-success btn-toggle-status';
+
+						const row = btn.closest('tr');
+						if (row) {
+							const cell = row.querySelector('td:nth-child(4)');
+							if (cell) cell.textContent = trangThai ? 'Đang Sử Dụng' : 'Đã Ẩn';
+						}
+					})
+					.catch(err => console.error(err));
+
+		});
+	</script>
 </div>
 </html>
