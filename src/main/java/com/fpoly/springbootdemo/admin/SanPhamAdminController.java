@@ -4,6 +4,7 @@ import com.fpoly.springbootdemo.models.SanPhamModel;
 import com.fpoly.springbootdemo.service.DanhMucService;
 import com.fpoly.springbootdemo.service.SanPhamService;
 import jakarta.servlet.http.HttpServletRequest;
+import jdk.jfr.Frequency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -87,8 +88,9 @@ public class SanPhamAdminController {
     }
 
     @PostMapping("/edit")
-    public String updateSanPham(Model model, @ModelAttribute("model") SanPhamModel sanPham) {
-        sanPhamSer.updateSanPham(sanPham);
+    public String updateSanPham(Model model, @ModelAttribute("model") SanPhamModel sanPham,  @RequestParam("fileAnh") MultipartFile file) {
+
+        sanPhamSer.updateSanPham(sanPham, file);
         return "redirect:/legoshop/admin/sanpham";
     }
 }

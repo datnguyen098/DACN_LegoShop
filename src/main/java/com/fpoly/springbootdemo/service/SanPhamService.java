@@ -103,31 +103,59 @@ return lst;
 		return sanPhamRe.findById(id);
 	}
 
-	public void updateSanPham(SanPhamModel sanPham) {
+	@Transactional
+	public void updateSanPham(SanPhamModel sanPham, MultipartFile file) {
 
-		SanPhamModel sp = sanPhamRe.findById(sanPham.getId()).orElseThrow();
+		SanPhamModel sp = sanPhamRe.findById(sanPham.getId())
+				.orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
 
+		String oldImage = sp.getAnhChinh();
 
-		Long dmId = sanPham.getDanhMuc().getId();
-		sp.setDanhMuc(danhMucRe.getReferenceById(dmId));
+		try {
+			// upload ảnh mới
+			if (file != null && !file.isEmpty()) {
 
-		// Danh mục
-		sp.setDanhMuc(sanPham.getDanhMuc());
+				String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-		// Thông tin cơ bản
-		sp.setMaSanPham(sanPham.getMaSanPham());
-		sp.setTenSanPham(sanPham.getTenSanPham());
-		sp.setDuongDan(sanPham.getDuongDan());
-		sp.setMoTa(sanPham.getMoTa());
+				Path uploadDir = Paths.get(uploadPath).toAbsolutePath();
+				if (!Files.exists(uploadDir)) {
+					Files.createDirectories(uploadDir);
+				}
 
-		// Giá
-		sp.setGiaGoc(sanPham.getGiaGoc());
+				Path filePath = uploadDir.resolve(fileName);
+				Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-		// Thông số
-		sp.setDoTuoiToiThieu(sanPham.getDoTuoiToiThieu());
-		sp.setSoManh(sanPham.getSoManh());
-		sp.setNamPhatHanh(sanPham.getNamPhatHanh());
-		sanPhamRe.save(sp);
+				// thêm ảnh mới
+				sp.setAnhChinh(fileName);
+
+				// xóa ảnh cũ
+				if (oldImage != null) {
+					Path oldPath = uploadDir.resolve(oldImage);
+					Files.deleteIfExists(oldPath);
+				}
+
+			} else {
+				// giữ ảnh cũ
+				sp.setAnhChinh(oldImage);
+			}
+
+			// update thông tin
+			Long dmId = sanPham.getDanhMuc().getId();
+			sp.setDanhMuc(danhMucRe.getReferenceById(dmId));
+
+			sp.setMaSanPham(sanPham.getMaSanPham());
+			sp.setTenSanPham(sanPham.getTenSanPham());
+			sp.setMoTa(sanPham.getMoTa());
+			sp.setGia(sanPham.getGia());
+			sp.setDoTuoiToiThieu(sanPham.getDoTuoiToiThieu());
+			sp.setSoManh(sanPham.getSoManh());
+			sp.setNamPhatHanh(sanPham.getNamPhatHanh());
+
+			sanPhamRe.save(sp);
+
+		} catch (Exception e) {
+			throw new RuntimeException("Lỗi update sản phẩm: " + e.getMessage());
+		}
 	}
 	public SanPhamModel findById(Long id){
 		return sanPhamRe.findById(id).orElse(null);

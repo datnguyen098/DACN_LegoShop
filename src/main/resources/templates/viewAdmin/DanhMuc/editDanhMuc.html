@@ -45,7 +45,7 @@
 										  method="post"
 										  th:object="${model}">
 
-										<input type="hidden" th:field="*{id}">
+										<input type="hidden" th:field="*{sp.id}">
 
 										<div class="row">
 											<div class="col-md-12 col-12">
@@ -54,22 +54,22 @@
 													<label>Tên Danh Mục</label>
 													<input type="text"
 														   class="form-control"
-														   th:field="*{tenDanhMuc}"
+														   th:field="*{sp.tenDanhMuc}"
 														   placeholder="Tên Danh Mục">
 													<span class="text-danger"
 														  th:if="${#fields.hasErrors('tenDanhMuc')}"
-														  th:errors="*{tenDanhMuc}"></span>
+														  th:errors="*{sp.tenDanhMuc}"></span>
 												</div>
 
 												<div class="form-group">
 													<label>Đường Dẫn</label>
 													<input type="text"
 														   class="form-control"
-														   th:field="*{duongDan}"
+														   th:field="*{sp.duongDan}"
 														   placeholder="Đường Dẫn">
 													<span class="text-danger"
 														  th:if="${#fields.hasErrors('duongDan')}"
-														  th:errors="*{duongDan}"></span>
+														  th:errors="*{sp.duongDan}"></span>
 												</div>
 
 											</div>
