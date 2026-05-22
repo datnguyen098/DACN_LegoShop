@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         NguoiDungModel nguoiDung = nguoiDungRepsitory
                 .findByEmailOrSoDienThoai(username, username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + username));
@@ -33,6 +32,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         String maVaiTro = nguoiDung.getVaiTro().getMaVaiTro();
 
+        if (maVaiTro == null || maVaiTro.isBlank()) {
+            throw new UsernameNotFoundException("Vai trò không hợp lệ");
+        }
+
         return new User(
                 nguoiDung.getEmail(),
                 nguoiDung.getMatKhauHash(),
@@ -40,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                List.of(new SimpleGrantedAuthority("ROLE_" + maVaiTro))
+                List.of(new SimpleGrantedAuthority("ROLE_" + maVaiTro.trim().toUpperCase()))
         );
     }
 }
