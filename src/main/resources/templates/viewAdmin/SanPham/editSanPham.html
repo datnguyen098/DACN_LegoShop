@@ -18,10 +18,10 @@
 							 class="breadcrumb-header float-start float-lg-end">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a th:href="@{/legoshop/admin}">Dashboard</a>
+									<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin}">Dashboard</button>
 								</li>
 								<li class="breadcrumb-item">
-									<a th:href="@{/legoshop/admin/sanpham}">Sản Phẩm</a>
+									<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin/sanpham}">Sản Phẩm</button>
 								</li>
 								<li class="breadcrumb-item active">Sửa Sản Phẩm</li>
 							</ol>
@@ -39,11 +39,12 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form class="form"
+									<form class="form form-ajax"
 										  th:action="@{/legoshop/admin/sanpham/edit}"
+										  data-ajax-url="/legoshop/admin/sanpham/edit/ajax"
 										  method="post"
 										  th:object="${model}"
-									enctype="multipart/form-data">
+										  enctype="multipart/form-data">
 
 										<input type="hidden" th:field="*{id}">
 
@@ -77,15 +78,6 @@
 													<span class="text-danger"
 														  th:if="${#fields.hasErrors('tenSanPham')}"
 														  th:errors="*{tenSanPham}"></span>
-												</div>
-
-												<div class="form-group">
-													<label>Đường Dẫn</label>
-													<input type="text" class="form-control"
-														   th:field="*{duongDan}">
-													<span class="text-danger"
-														  th:if="${#fields.hasErrors('duongDan')}"
-														  th:errors="*{duongDan}"></span>
 												</div>
 
 												<div class="form-group">
@@ -134,7 +126,7 @@
 												</div>
 
 												<div class="form-group">
-													<label>Đường dẫn ảnh</label>
+													<label>Ảnh sản phẩm</label>
 													<input type="file" class="form-control"
 														    name="fileAnh">
 
@@ -142,14 +134,9 @@
 											</div>
 
 											<div class="col-12 d-flex justify-content-end">
-												<button type="submit"
-														class="btn btn-primary me-1 mb-1">
-													Submit
-												</button>
-												<button type="reset"
-														class="btn btn-light-secondary me-1 mb-1">
-													Reset
-												</button>
+												<button type="submit" class="btn btn-primary me-1 mb-1">Cập nhật</button>
+												<button type="button" class="btn btn-light-secondary me-1 mb-1 btn-admin-page"
+														th:data-url="@{/legoshop/admin/sanpham}">Hủy</button>
 											</div>
 										</div>
 

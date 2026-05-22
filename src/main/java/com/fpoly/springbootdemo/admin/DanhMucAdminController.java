@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 
 import java.util.Map;
 
@@ -46,6 +45,20 @@ public class DanhMucAdminController {
         return "redirect:/legoshop/admin/danhmuc";
     }
 
+    @PostMapping("/store/ajax")
+    @ResponseBody
+    public ResponseEntity<?> addDanhMucAjax(@Valid @ModelAttribute("model") DanhMucModel danhMuc, BindingResult result) {
+        if (result.hasErrors()) {
+            return AdminAjaxHelper.validationError(result);
+        }
+        try {
+            danhMucSer.addDanhMuc(danhMuc);
+            return AdminAjaxHelper.ok("Thêm danh mục thành công", "/legoshop/admin/danhmuc");
+        } catch (Exception ex) {
+            return AdminAjaxHelper.fail(ex.getMessage() != null ? ex.getMessage() : "Không thể lưu danh mục");
+        }
+    }
+
     // đổi trạng thái nút
     @GetMapping("/toggle/{id}/ajax")
     @ResponseBody
@@ -66,8 +79,26 @@ public class DanhMucAdminController {
     }
 
     @PostMapping("/edit")
-    public String upDateDanhMuc(Model model, @ModelAttribute("model") DanhMucModel danhMuc) {
+    public String upDateDanhMuc(Model model, @Valid @ModelAttribute("model") DanhMucModel danhMuc, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("content", "viewAdmin/DanhMuc/editDanhMuc.html");
+            return "viewAdmin/indexAdmin";
+        }
         danhMucSer.UpdateDanhMuc(danhMuc);
         return "redirect:/legoshop/admin/danhmuc";
+    }
+
+    @PostMapping("/edit/ajax")
+    @ResponseBody
+    public ResponseEntity<?> updateDanhMucAjax(@Valid @ModelAttribute("model") DanhMucModel danhMuc, BindingResult result) {
+        if (result.hasErrors()) {
+            return AdminAjaxHelper.validationError(result);
+        }
+        try {
+            danhMucSer.UpdateDanhMuc(danhMuc);
+            return AdminAjaxHelper.ok("Cập nhật danh mục thành công", "/legoshop/admin/danhmuc");
+        } catch (Exception ex) {
+            return AdminAjaxHelper.fail(ex.getMessage() != null ? ex.getMessage() : "Không thể cập nhật danh mục");
+        }
     }
 }

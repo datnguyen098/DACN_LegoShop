@@ -30,6 +30,9 @@
 
     <!-- Template Stylesheet -->
     <link href="/assets/css/formClient/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/css/formClient/auth-modal.css" rel="stylesheet">
 </head>
 
 <body class="m-0 p-0">
@@ -68,10 +71,16 @@
 
         <!-- Đăng nhập + Giỏ hàng -->
         <div class="col-lg-3 d-flex align-items-center justify-content-end gap-3">
-            <a href="" class="btn btn-success rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold">
+            <button type="button" id="btnShowAuth"
+                    class="btn btn-success rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold">
                 <i class="fas fa-user-circle fs-5"></i>
                 <span>Đăng Nhập</span>
-            </a>
+            </button>
+            <button type="button" id="btnLogout"
+                    class="btn btn-outline-light rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold d-none">
+                <i class="fas fa-sign-out-alt fs-5"></i>
+                <span>Đăng Xuất</span>
+            </button>
             <a href="" class="btn btn-warning rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold">
                 <i class="fas fa-shopping-cart fs-5"></i>
                 <span>Giỏ Hàng</span>
@@ -156,6 +165,9 @@
 
 <!-- Nội dung chính -->
 <div th:if="${content != null}" th:replace="~{${content}}"></div>
+
+<!-- Modal đăng nhập / đăng ký -->
+<div th:replace="~{viewClient/fragments/authModal :: authModal}"></div>
 
 <!-- Footer Start -->
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
@@ -316,6 +328,7 @@
 });</script>
 <!-- Template Javascript -->
 <script src="/assets/jsClient/main.js"></script>
+<script src="/assets/jsClient/auth.js"></script>
 </body>
 
 </html>

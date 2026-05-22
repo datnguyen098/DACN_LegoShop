@@ -18,10 +18,10 @@
 							 class="breadcrumb-header float-start float-lg-end">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a th:href="@{/legoshop/admin}">Dashboard</a>
+									<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin}">Dashboard</button>
 								</li>
 								<li class="breadcrumb-item">
-									<a th:href="@{/legoshop/admin/danhmuc}">Danh Mục</a>
+									<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin/danhmuc}">Danh Mục</button>
 								</li>
 								<li class="breadcrumb-item active" aria-current="page">
 									Thêm Danh Mục
@@ -41,12 +41,11 @@
 							</div>
 							<div class="card-content">
 								<div class="card-body">
-									<form class="form"
+									<form class="form form-ajax"
 										  th:action="@{/legoshop/admin/danhmuc/store}"
+										  data-ajax-url="/legoshop/admin/danhmuc/store/ajax"
 										  method="post"
 										  th:object="${model}">
-
-										<input type="hidden" th:field="*{id}">
 
 										<div class="row">
 											<div class="col-md-12 col-12">
@@ -62,28 +61,12 @@
 														  th:errors="*{tenDanhMuc}"></span>
 												</div>
 
-												<div class="form-group">
-													<label>Đường Dẫn</label>
-													<input type="text"
-														   class="form-control"
-														   th:field="*{duongDan}"
-														   placeholder="Đường Dẫn">
-													<span class="text-danger"
-														  th:if="${#fields.hasErrors('duongDan')}"
-														  th:errors="*{duongDan}"></span>
-												</div>
-
 											</div>
 
 											<div class="col-12 d-flex justify-content-end">
-												<button type="submit"
-														class="btn btn-primary me-1 mb-1">
-													Submit
-												</button>
-												<button type="reset"
-														class="btn btn-light-secondary me-1 mb-1">
-													Reset
-												</button>
+												<button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+												<button type="button" class="btn btn-light-secondary me-1 mb-1 btn-admin-page"
+														th:data-url="@{/legoshop/admin/danhmuc}">Hủy</button>
 											</div>
 										</div>
 

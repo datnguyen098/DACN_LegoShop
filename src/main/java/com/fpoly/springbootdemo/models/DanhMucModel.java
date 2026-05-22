@@ -31,7 +31,6 @@ public class DanhMucModel {
     @NotBlank(message = "Tên danh mục không được để trống")
     private String tenDanhMuc;
 
-    @NotBlank(message = "Đường dẫn không được để trống")
     private String duongDan;
 
     @Column(nullable = false)

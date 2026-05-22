@@ -13,7 +13,9 @@ import java.util.List;
 @Repository
 public interface DanhMucRepository extends JpaRepository<DanhMucModel, Long> {
 
+    long countByTrangThaiTrue();
 
+    java.util.Optional<DanhMucModel> findByDuongDan(String duongDan);
 
     @Query("select dm.tenDanhMuc from DanhMucModel dm where dm.trangThai = true")
     List<String> findAllTenDanhMuc();

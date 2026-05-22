@@ -1,44 +1,21 @@
 <div id="main" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DataTable - Mazer Admin Dashboard</title>
-
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/css/bootstrap.css">
-
-        <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
-
-        <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-        <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-        <link rel="stylesheet" href="/assets/css/app.css">
-        <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
-
-        <!-- CSS riêng của trang này -->
-        <link rel="stylesheet" href="/assets/css/pages/anh-san-pham.css">
-    </head>
-
     <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none">
-            <i class="bi bi-justify fs-3"></i>
-        </a>
+        <a href="#" class="burger-btn d-block d-xl-none"><i class="bi bi-justify fs-3"></i></a>
     </header>
 
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Quản Lý Ảnh</h3>
+                    <h3>Quản lý ảnh sản phẩm</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a th:href="@{/legoshop/admin}">Admin</a>
+                                <button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin}">Admin</button>
                             </li>
-                            <li class="breadcrumb-item active">Sản Phẩm</li>
-                            <li class="breadcrumb-item active">Ảnh Sản Phẩm</li>
+                            <li class="breadcrumb-item active">Ảnh sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -47,60 +24,46 @@
 
         <section class="section">
             <div class="card">
-                <div class="card-header">Ảnh sản phẩm</div>
+                <div class="card-header">Danh sách ảnh theo sản phẩm</div>
                 <div class="card-body">
-                    <div class="table-scroll">
-                        <table class="table table-striped align-middle" id="table1">
-                            <thead>
-                            <tr id="headerRow">
+                    <table class="table table-striped align-middle" id="table1">
+                        <thead>
+                            <tr>
                                 <th>STT</th>
-                                <th>Tên Sản Phẩm</th>
-                                <th>Ảnh Chính</th>
-
-                                <th> Kho Ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ảnh chính</th>
+                                <th>Kho ảnh phụ</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(list)}">
+                                <td colspan="4" class="text-center text-muted py-4">Chưa có sản phẩm.</td>
+                            </tr>
                             <tr th:each="sp, stt : ${list}">
                                 <td th:text="${stt.count}"></td>
                                 <td th:text="${sp.tenSanPham}"></td>
-
-                                <!-- Ảnh chính -->
                                 <td>
-                                    <img th:if="${sp.anhChinh != null}"
-                                         th:src="@{/uploads/{f}(f=${sp.anhChinh})}"
-                                         style="width:60px;height:60px;object-fit:cover;border-radius:6px">
-                                    <span th:unless="${sp.anhChinh != null}" class="text-muted small">—</span>
+                                    <img th:if="${sp.AnhChinh != null}"
+                                         th:src="@{/uploads/{f}(f=${sp.AnhChinh})}"
+                                         style="width:60px;height:60px;object-fit:cover;border-radius:6px" alt="">
+                                    <span th:unless="${sp.AnhChinh != null}" class="text-muted small">—</span>
                                 </td>
-
                                 <td>
-                                    <a class="btn btn-success"
-                                       th:href="@{/legoshop/admin/sanpham/anhsanpham/khoanh/{id}(id=${sp.id})}">
-                                        Kho Ảnh
-                                    </a>
+                                    <button type="button" class="btn btn-success btn-admin-page"
+                                            th:data-url="@{/legoshop/admin/sanpham/anhsanpham/khoanh/{id}(id=${sp.id})}">
+                                        <i class="bi bi-images"></i> Kho ảnh
+                                    </button>
                                 </td>
-
-
-
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
     </div>
 
-    <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/main.js"></script>
     <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
+        if (typeof initAdminPage === 'function') initAdminPage();
     </script>
-    <!-- JS riêng của trang này — đặt cuối cùng -->
-    <script src="/assets/js/pages/anh-san-pham.js"></script>
-
 </div>

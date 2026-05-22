@@ -1,25 +1,12 @@
-<div id="main"xmlns:th="http://www.thymeleaf.org">
+<div id="main" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable - Mazer Admin Dashboard</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-
+    <title>Quản lý sản phẩm</title>
     <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
-
-    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
 </head>
 	<header class="mb-3">
-		<a href="#" class="burger-btn d-block d-xl-none"> <i
-			class="bi bi-justify fs-3"></i>
-		</a>
-		
+		<a href="#" class="burger-btn d-block d-xl-none"><i class="bi bi-justify fs-3"></i></a>
 	</header>
 
 	<div class="page-heading">
@@ -29,11 +16,10 @@
 					<h3>Sản Phẩm</h3>
 				</div>
 				<div class="col-12 col-md-6 order-md-2 order-first">
-					<nav aria-label="breadcrumb"
-						class="breadcrumb-header float-start float-lg-end">
+					<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">
-								<a th:href="@{/legoshop/admin}">Admin</a>
+								<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin}">Admin</button>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Sản Phẩm</li>
 						</ol>
@@ -45,131 +31,81 @@
 			<div class="card">
 				<div class="card-header">Sản Phẩm</div>
 				<div class="card-body">
-					<a class="btn btn-success"
-					   th:href="@{/legoshop/admin/sanpham/add}">
+					<button type="button" class="btn btn-success btn-admin-page"
+							th:data-url="@{/legoshop/admin/sanpham/add}">
 						Thêm Sản Phẩm
-					</a>
+					</button>
+
 					<table class="table table-striped" id="table1" style="overflow-x: auto;">
 						<thead>
 							<tr>
-						<th>STT</th>
-								<th>Mã Sản Phẩm</th>
-								<th>Tên Sản Phẩm</th>
+								<th>STT</th>
+								<th>Mã SP</th>
+								<th>Tên SP</th>
 								<th>Danh Mục</th>
-								<th>Mô Tả </th>
 								<th>Giá</th>
-								<th>Hình Ảnh Chính</th>
-								<th>Độ Tuổi Tối Thiểu</th>
-								<th>Số Mảnh</th>
-								<th>Năm Phát Hành</th>
+								<th>Ảnh chính</th>
 								<th>Trạng Thái</th>
-								<th> Hành Động</th>
-
+								<th>Hành Động</th>
 							</tr>
 						</thead>
 						<tbody>
+							<tr th:if="${#lists.isEmpty(list)}">
+								<td colspan="8" class="text-center text-muted py-4">
+									Chưa có sản phẩm. Bấm <strong>Thêm Sản Phẩm</strong> để tạo mới.
+								</td>
+							</tr>
 							<tr th:each="sp, stt : ${list}">
-								<td th:text="${stt.count}">ádfasdf</td>
-								<td th:text="${sp.maSanPham}">ádfasd</td>
-								<td th:text="${sp.tenSanPham}">adsfasdfa </td>
-								<td th:text="${sp.danhMuc.getTenDanhMuc()}">adsfasdfa </td>
-								
-								<td th:text="${sp.moTa}">adfasdf</td>
-								<td th:text="${sp.gia}">ầdsf</td>
-								<td ><img alt="" width="150px" th:src="@{/uploads/{src}(src=${sp.AnhChinh})}" class="img-fluid border-2"
-										  style="height:120px; width:120px; object-fit:cover; cursor:pointer;"  onclick="showPreview(this.src)"></td>
-								<div class="modal fade" id="imageModal">
-									<div class="modal-dialog modal-dialog-centered modal-lg">
-										<div class="modal-content bg-transparent border-0 p-0">
-
-											<img id="previewImg"
-												 class="img-fluid"
-												 style="max-width: 90vw; max-height: 90vh; object-fit: contain;"    >
-
-										</div>
-									</div>
-								</div>
-								<td th:text="${sp.doTuoiToiThieu}">adfadf</td>
-								<td th:text="${sp.soManh}">adfa</td>
-								<td th:text="${sp.namPhatHanh}">ádfafda</td>
-								<td th:text="${sp.trangThai == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}">ádfasdfasd</td>
-								<td ><button type="button"
-											 th:attr="data-id=${sp.id}, data-trangthai=${sp.trangThai}"
-										th:text="${sp.trangThai == 'DANG_BAN'} ? 'Ẩn' : 'Hiện'"
-										th:classappend="${sp.trangThai == 'DANG_BAN'} ? 'btn btn-warning' : 'btn btn-success'"
-										class="btn btn-toggle-status">
-								</button>
-									<a class="btn btn-secondary"
-									   th:href="@{/legoshop/admin/sanpham/edit/{id}(id=${sp.id})}">
+								<td th:text="${stt.count}"></td>
+								<td th:text="${sp.maSanPham}"></td>
+								<td th:text="${sp.tenSanPham}"></td>
+								<td th:text="${sp.danhMuc != null ? sp.danhMuc.tenDanhMuc : '—'}"></td>
+								<td th:text="${sp.gia}"></td>
+								<td>
+									<img th:if="${sp.AnhChinh != null}" alt=""
+										 width="80" height="80"
+										 th:src="@{/uploads/{src}(src=${sp.AnhChinh})}"
+										 class="img-fluid border-2 btn-preview-img"
+										 style="object-fit:cover; cursor:pointer;"
+										 th:attr="data-src=@{/uploads/{src}(src=${sp.AnhChinh})}">
+								</td>
+								<td th:text="${sp.trangThai == 'DANG_BAN' ? 'Đang Bán' : 'Ngừng Bán'}"></td>
+								<td class="text-nowrap">
+									<button type="button"
+											th:attr="data-id=${sp.id}"
+											th:text="${sp.trangThai == 'DANG_BAN'} ? 'Ẩn' : 'Hiện'"
+											th:classappend="${sp.trangThai == 'DANG_BAN'} ? 'btn-warning' : 'btn-success'"
+											class="btn btn-toggle-status">
+									</button>
+									<button type="button" class="btn btn-secondary btn-admin-page"
+											th:data-url="@{/legoshop/admin/sanpham/edit/{id}(id=${sp.id})}">
 										Sửa
-									</a></td>
-																
-								
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-
 		</section>
 	</div>
 
+	<div class="modal fade" id="imageModal">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content bg-transparent border-0 p-0">
+				<img id="previewImg" class="img-fluid" style="max-width:90vw;max-height:90vh;object-fit:contain;">
+			</div>
+		</div>
+	</div>
 
-	 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-
-    <script src="/assets/js/main.js"></script>
+	<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
 	<script>
-
-		document.addEventListener('click', function(e) {
-			const btn = e.target.closest('.btn-toggle-status');
-			if (!btn) return;
-
-			e.preventDefault();
-
-			const id = btn.dataset.id;
-
-			fetch(`/legoshop/admin/sanpham/toggle/${id}/ajax`)
-					.then(res => res.json())
-					.then(data => {
-						console.log('Server trả về:', data.trangThai);
-
-						const trangThai = data.trangThai === 'DANG_BAN';
-
-						// Cập nhật data-trangthai (quan trọng!)
-						btn.dataset.trangthai = data.trangThai;
-
-						btn.textContent = trangThai ? 'Ẩn' : 'Hiện';
-
-						btn.classList.remove('btn-warning', 'btn-success');
-						btn.classList.add(trangThai ? 'btn-warning' : 'btn-success');
-
-						// Cập nhật cột trạng thái
-						const row = btn.closest('tr');
-						if (row) {
-							const cell = row.querySelector('td:nth-child(11)');
-							if (cell) {
-								cell.textContent = trangThai ? 'Đang Bán' : 'Ngừng Bán';
-							}
-						}
-					})
-					.catch(err => console.error(err));
+		document.querySelectorAll('.btn-preview-img').forEach(function (img) {
+			img.addEventListener('click', function () {
+				document.getElementById('previewImg').src = this.dataset.src || this.src;
+				new bootstrap.Modal(document.getElementById('imageModal')).show();
+			});
 		});
-	</script>
-
-	<script>
-		function showPreview(src) {
-			document.getElementById("previewImg").src = src;
-
-			const modal = new bootstrap.Modal(document.getElementById('imageModal'));
-			modal.show();
-		}
+		if (typeof initAdminPage === 'function') initAdminPage();
 	</script>
 </div>

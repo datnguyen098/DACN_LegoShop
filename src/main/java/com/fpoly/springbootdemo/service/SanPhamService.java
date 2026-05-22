@@ -18,6 +18,7 @@ import com.fpoly.springbootdemo.repositorys.AnhSanPhamRepository;
 import com.fpoly.springbootdemo.repositorys.DanhMucRepository;
 import com.fpoly.springbootdemo.repositorys.SanPhamRepository;
 import com.fpoly.springbootdemo.repositorys.TonKhoRepository;
+import com.fpoly.springbootdemo.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -75,6 +76,8 @@ return lst;
 		Long dmId = sp.getDanhMuc().getId();
 		DanhMucModel dm = danhMucRe.findById(dmId).orElseThrow();
 		sp.setDanhMuc(dm);
+		sp.setDuongDan(SlugUtil.uniqueSlug(sp.getTenSanPham(),
+				slug -> sanPhamRe.findByDuongDan(slug).isPresent()));
 		SanPhamModel saved = sanPhamRe.save(sp);
 
 		// get Id của sản phẩm vừa tạo
@@ -145,6 +148,15 @@ return lst;
 
 			sp.setMaSanPham(sanPham.getMaSanPham());
 			sp.setTenSanPham(sanPham.getTenSanPham());
+			String newSlug = SlugUtil.toSlug(sanPham.getTenSanPham());
+			if (!newSlug.equals(sp.getDuongDan())) {
+				final Long id = sp.getId();
+				newSlug = SlugUtil.uniqueSlug(sanPham.getTenSanPham(),
+						slug -> sanPhamRe.findByDuongDan(slug)
+								.filter(s -> !s.getId().equals(id))
+								.isPresent());
+				sp.setDuongDan(newSlug);
+			}
 			sp.setMoTa(sanPham.getMoTa());
 			sp.setGia(sanPham.getGia());
 			sp.setDoTuoiToiThieu(sanPham.getDoTuoiToiThieu());

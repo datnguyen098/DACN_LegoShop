@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,8 +28,6 @@ public class SanPhamModel {
 	private String maSanPham;
 	@NotBlank(message = "Tên sản phẩm không được để trống")
 	private String tenSanPham;
-	@Pattern (regexp = "^[a-z0-9]+(?:-[a-z0-9]+)*$", message = "Đường dẫn chỉ gồm chữ thường, số và dấu -")
-	@NotBlank(message = "Đường dẫn không được để trống")
 	private String duongDan;
 	@NotBlank(message = "Hãy điền thêm mô tả")
 	private String moTa;

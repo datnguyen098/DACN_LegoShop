@@ -32,7 +32,7 @@ public class AnhSanPhamService {
  }
 
     public List<AnhSanPhamModel> getBySanPhamId(Long sanPhamId) {
-        return anhSanPhamRe.findBySanPham_IdOrderByThuTuAsc(sanPhamId);
+        return anhSanPhamRe.findBySanPham_IdAndDuongDanAnhIsNotNullOrderByThuTuAsc(sanPhamId);
     }
  // logic thêm ảnh sản phẩm mới
     @Transactional
@@ -44,6 +44,14 @@ public class AnhSanPhamService {
         if (!Files.exists(uploadDir)) Files.createDirectories(uploadDir);
         Files.copy(file.getInputStream(), uploadDir.resolve(fileName),
                 StandardCopyOption.REPLACE_EXISTING);
+
+        var emptySlot = anhSanPhamRe.findFirstBySanPham_IdAndDuongDanAnhIsNull(sanPhamId);
+        if (emptySlot.isPresent()) {
+            AnhSanPhamModel anh = emptySlot.get();
+            anh.setDuongDanAnh(fileName);
+            anhSanPhamRe.save(anh);
+            return;
+        }
 
         Integer maxThuTu = anhSanPhamRe.getMaxThuTuBySanPhamId(sanPhamId.intValue());
         int thuTuMoi = (maxThuTu == null) ? 1 : maxThuTu + 1;

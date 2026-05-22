@@ -3,31 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataTable - Mazer Admin Dashboard</title>
+<title>Quản lý danh mục</title>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/bootstrap.css">
-
-<link rel="stylesheet"
-	href="/assets/vendors/simple-datatables/style.css">
-
-<link rel="stylesheet"
-	href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet"
-	href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+<link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet" href="/assets/css/app.css">
-<link rel="shortcut icon" href="/assets/images/favicon.svg"
-	type="image/x-icon">
+<link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
 </head>
 <div id="main" xmlns:th="http://www.thymeleaf.org">
 	<header class="mb-3">
-		<a href="#" class="burger-btn d-block d-xl-none"> <i
-			class="bi bi-justify fs-3"></i>
-		</a>
-
+		<a href="#" class="burger-btn d-block d-xl-none"> <i class="bi bi-justify fs-3"></i></a>
 	</header>
 
 	<div class="page-heading">
@@ -37,14 +28,12 @@
 					<h3>Danh Mục</h3>
 				</div>
 				<div class="col-12 col-md-6 order-md-2 order-first">
-					<nav aria-label="breadcrumb"
-						class="breadcrumb-header float-start float-lg-end">
+					<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">
-								<a th:href="@{/legoshop/admin}">Admin</a>
+								<button type="button" class="btn btn-link p-0 admin-nav-link" th:data-url="@{/legoshop/admin}">Admin</button>
 							</li>
-							<li class="breadcrumb-item active" aria-current="page">Danh
-								Mục</li>
+							<li class="breadcrumb-item active" aria-current="page">Danh Mục</li>
 						</ol>
 					</nav>
 				</div>
@@ -54,99 +43,56 @@
 			<div class="card">
 				<div class="card-header">Danh Mục Sản Phẩm</div>
 				<div class="card-body">
-					<a class="btn btn-success"
-					   th:href="@{/legoshop/admin/danhmuc/add}">
+					<button type="button" class="btn btn-success btn-admin-page"
+							th:data-url="@{/legoshop/admin/danhmuc/add}">
 						Thêm Danh Mục
-					</a>
+					</button>
+
 					<table class="table table-striped" id="table1">
 						<thead>
 							<tr>
 								<th>STT</th>
 								<th>Tên Danh Mục</th>
-								<th>Đường Dẫn</th>
 								<th>Trạng Thái</th>
 								<th>Hành Động</th>
 							</tr>
 						</thead>
 						<tbody>
+							<tr th:if="${#lists.isEmpty(list)}">
+								<td colspan="4" class="text-center text-muted py-4">
+									Chưa có danh mục. Bấm <strong>Thêm Danh Mục</strong> để tạo mới.
+								</td>
+							</tr>
 							<tr th:each="dm, stt : ${list}">
 								<td th:text="${stt.count}"></td>
 								<td th:text="${dm.tenDanhMuc}"></td>
-								<td th:text="${dm.duongDan}"></td>
 								<td th:text="${dm.trangThai == true ? 'Đang Sử Dụng':'Đã Ẩn'}"></td>
-								<td><button
-										type="button"
-										th:attr="data-id=${dm.id}, data-trangthai=${dm.trangThai}"
-										th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
-										th:classappend="${dm.trangThai} ? 'btn-warning' : 'btn-success'"
-										class="btn btn-toggle-status">
-								</button> <a th:href="@{/legoshop/admin/danhmuc/edit/{id}(id=${dm.id})}"
-										class="btn btn-warning">
-									Sửa
-								</a></td>
+								<td class="text-nowrap">
+									<button type="button"
+											th:attr="data-id=${dm.id}"
+											th:text="${dm.trangThai} ? 'Ẩn' : 'Hiện'"
+											th:classappend="${dm.trangThai} ? 'btn-warning' : 'btn-success'"
+											class="btn btn-toggle-status">
+									</button>
+									<button type="button" class="btn btn-warning btn-admin-page"
+											th:data-url="@{/legoshop/admin/danhmuc/edit/{id}(id=${dm.id})}">
+										Sửa
+									</button>
+								</td>
 							</tr>
-
 						</tbody>
-
 					</table>
 				</div>
 			</div>
-
 		</section>
 	</div>
 
-
-	<script
-		src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script src="/assets/js/bootstrap.bundle.min.js"></script>
-
 	<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
 	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
-		let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
-	<script>
-		function showInput() {
-			document.getElementById("inputBox").style.display = "block";
-		}
-
-		function edit() {
-			event.preventDefault();
-		}
-	</script>
-	<script src="/assets/js/main.js"></script>
-	<script>
-		document.addEventListener('click', function(e) {
-
-			const btn = e.target.closest('.btn-toggle-status');
-
-			if (!btn) return;
-
-			const id = btn.dataset.id;
-
-			fetch(`/legoshop/admin/danhmuc/toggle/${id}/ajax`)
-					.then(res => res.json())
-					.then(data => {
-						console.log('Server trả về:', data.trangThai, typeof data.trangThai);
-
-						const trangThai = data.trangThai === true;
-						console.log('trangThai sau ép kiểu:', trangThai);
-
-						btn.textContent = trangThai ? 'Ẩn' : 'Hiện';
-						btn.className = trangThai
-								? 'btn btn-warning btn-toggle-status'
-								: 'btn btn-success btn-toggle-status';
-
-						const row = btn.closest('tr');
-						if (row) {
-							const cell = row.querySelector('td:nth-child(4)');
-							if (cell) cell.textContent = trangThai ? 'Đang Sử Dụng' : 'Đã Ẩn';
-						}
-					})
-					.catch(err => console.error(err));
-
-		});
+		if (typeof initAdminPage === 'function') initAdminPage();
+		else if (typeof initAdminDataTable === 'function') initAdminDataTable();
 	</script>
 </div>
 </html>

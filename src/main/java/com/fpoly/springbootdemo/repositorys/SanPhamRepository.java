@@ -14,5 +14,7 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPhamModel, Long> {
 
+    long countByTrangThai(String trangThai);
 
+    java.util.Optional<SanPhamModel> findByDuongDan(String duongDan);
 }

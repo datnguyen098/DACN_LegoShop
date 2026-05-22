@@ -14,4 +14,8 @@ public interface AnhSanPhamRepository extends JpaRepository<AnhSanPhamModel, Lon
     Integer getMaxThuTuBySanPhamId(@Param("id") Integer id);
 
     List<AnhSanPhamModel> findBySanPham_IdOrderByThuTuAsc(Long sanPhamId);
+
+    List<AnhSanPhamModel> findBySanPham_IdAndDuongDanAnhIsNotNullOrderByThuTuAsc(Long sanPhamId);
+
+    java.util.Optional<AnhSanPhamModel> findFirstBySanPham_IdAndDuongDanAnhIsNull(Long sanPhamId);
 }

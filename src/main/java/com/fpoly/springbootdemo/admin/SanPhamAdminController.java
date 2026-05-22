@@ -4,7 +4,6 @@ import com.fpoly.springbootdemo.models.SanPhamModel;
 import com.fpoly.springbootdemo.service.DanhMucService;
 import com.fpoly.springbootdemo.service.SanPhamService;
 import jakarta.servlet.http.HttpServletRequest;
-import jdk.jfr.Frequency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -54,28 +53,37 @@ public class SanPhamAdminController {
     public String addSanPham(Model model,
                              @Valid @ModelAttribute("model") SanPhamModel sanPham,
                              BindingResult result,
-                             @RequestParam("file") MultipartFile file,
+                             @RequestParam(value = "file", required = false) MultipartFile file,
                              HttpServletRequest request) {
         try {
             if (result.hasErrors()) {
-                System.out.println("VALIDATION ERROR");
-                result.getAllErrors().forEach(e -> System.out.println(e.toString()));
                 model.addAttribute("list", danhMucSer.getAllDanhMuc());
                 model.addAttribute("content", "viewAdmin/SanPham/addSanPham");
-                System.out.println("FILE NULL? " + (file == null));
-                System.out.println("FILE NAME: " + file.getOriginalFilename());
                 return "viewAdmin/indexAdmin";
             }
             sanPhamSer.addSanPham(sanPham, file);
             return "redirect:/legoshop/admin/sanpham";
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("có lỗi ở:" + e.getMessage());
-
             model.addAttribute("list", danhMucSer.getAllDanhMuc());
             model.addAttribute("content", "viewAdmin/SanPham/addSanPham");
-
+            model.addAttribute("errorMessage", e.getMessage());
             return "viewAdmin/indexAdmin";
+        }
+    }
+
+    @PostMapping("/store/ajax")
+    @ResponseBody
+    public ResponseEntity<?> addSanPhamAjax(@Valid @ModelAttribute("model") SanPhamModel sanPham,
+                                            BindingResult result,
+                                            @RequestParam(value = "file", required = false) MultipartFile file) {
+        if (result.hasErrors()) {
+            return AdminAjaxHelper.validationError(result);
+        }
+        try {
+            sanPhamSer.addSanPham(sanPham, file);
+            return AdminAjaxHelper.ok("Thêm sản phẩm thành công", "/legoshop/admin/sanpham");
+        } catch (Exception e) {
+            return AdminAjaxHelper.fail(e.getMessage() != null ? e.getMessage() : "Không thể lưu sản phẩm");
         }
     }
 
@@ -88,9 +96,32 @@ public class SanPhamAdminController {
     }
 
     @PostMapping("/edit")
-    public String updateSanPham(Model model, @ModelAttribute("model") SanPhamModel sanPham,  @RequestParam("fileAnh") MultipartFile file) {
-
+    public String updateSanPham(Model model,
+                                @Valid @ModelAttribute("model") SanPhamModel sanPham,
+                                BindingResult result,
+                                @RequestParam(value = "fileAnh", required = false) MultipartFile file) {
+        if (result.hasErrors()) {
+            model.addAttribute("list", danhMucSer.getAllDanhMuc());
+            model.addAttribute("content", "viewAdmin/SanPham/editSanPham.html");
+            return "viewAdmin/indexAdmin";
+        }
         sanPhamSer.updateSanPham(sanPham, file);
         return "redirect:/legoshop/admin/sanpham";
+    }
+
+    @PostMapping("/edit/ajax")
+    @ResponseBody
+    public ResponseEntity<?> updateSanPhamAjax(@Valid @ModelAttribute("model") SanPhamModel sanPham,
+                                               BindingResult result,
+                                               @RequestParam(value = "fileAnh", required = false) MultipartFile file) {
+        if (result.hasErrors()) {
+            return AdminAjaxHelper.validationError(result);
+        }
+        try {
+            sanPhamSer.updateSanPham(sanPham, file);
+            return AdminAjaxHelper.ok("Cập nhật sản phẩm thành công", "/legoshop/admin/sanpham");
+        } catch (Exception e) {
+            return AdminAjaxHelper.fail(e.getMessage() != null ? e.getMessage() : "Không thể cập nhật sản phẩm");
+        }
     }
 }

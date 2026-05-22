@@ -4,6 +4,7 @@ package com.fpoly.springbootdemo.service;
 
 import com.fpoly.springbootdemo.models.DanhMucModel;
 import com.fpoly.springbootdemo.repositorys.DanhMucRepository;
+import com.fpoly.springbootdemo.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public List<DanhMucModel> getAllDanhMuc(){
 	return danhMucRe.findAll();
 }
 public void addDanhMuc(DanhMucModel danhMuc) {
+	danhMuc.setDuongDan(SlugUtil.uniqueSlug(danhMuc.getTenDanhMuc(),
+			slug -> danhMucRe.findByDuongDan(slug).isPresent()));
 	danhMucRe.save(danhMuc);
 }
 // đổi trạng thái nút
@@ -42,7 +45,15 @@ public void UpdateDanhMuc(DanhMucModel danhMuc) {
 	if (model.isPresent()) {
 		DanhMucModel danhMucModel = model.get();
 		danhMucModel.setTenDanhMuc(danhMuc.getTenDanhMuc());
-		danhMucModel.setDuongDan(danhMuc.getDuongDan());
+		String newSlug = SlugUtil.toSlug(danhMuc.getTenDanhMuc());
+		if (!newSlug.equals(danhMucModel.getDuongDan())) {
+			final Long id = danhMucModel.getId();
+			newSlug = SlugUtil.uniqueSlug(danhMuc.getTenDanhMuc(),
+					slug -> danhMucRe.findByDuongDan(slug)
+							.filter(dm -> !dm.getId().equals(id))
+							.isPresent());
+			danhMucModel.setDuongDan(newSlug);
+		}
 		danhMucRe.save(danhMucModel);
 	}
 }

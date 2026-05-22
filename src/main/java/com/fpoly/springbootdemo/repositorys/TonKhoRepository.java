@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface TonKhoRepository extends JpaRepository<TonKhoModel, Long> {
+
+    long countBySoLuongTonLessThan(int soLuong);
 	@Modifying
 	@Transactional
 	@Query("""
