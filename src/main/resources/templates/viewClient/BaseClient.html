@@ -24,7 +24,9 @@
     <link href="/assets/lib/animate/animate.min.css" rel="stylesheet">
     <link href="/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/assets/css/formClient/bootstrap.min.css" rel="stylesheet">
 
@@ -227,141 +229,120 @@
 <div th:replace="~{viewClient/fragments/authModal :: authModal}"></div>
 
 <!-- Footer Start -->
-<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-    <div class="container py-5">
-        <div class="row g-4 rounded mb-5" style="background: rgba(255, 255, 255, .03);">
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="rounded p-4">
-                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                         style="width: 70px; height: 70px;">
-                        <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+<footer class="footer-main">
+    <div class="container">
+        <div class="row g-4 g-lg-5">
+
+            <!-- Cột 1: Giới thiệu -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="footer-logo d-flex align-items-center gap-2 mb-1">
+                    <!-- Logo placeholder: thay src bằng logo thực -->
+                    <div style="width:44px;height:44px;background:var(--cam);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-microchip text-white" style="font-size:1.2rem;"></i>
                     </div>
+                    <span class="footer-logo-text">Tech<span>Shop</span></span>
+                </div>
+                <p class="footer-desc">
+                    Hệ thống bán lẻ điện tử &amp; công nghệ hàng đầu Việt Nam. Cam kết sản phẩm chính hãng, giá tốt nhất và dịch vụ hậu mãi tận tâm.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-link" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
+                </div>
+            </div>
+
+            <!-- Cột 2: Liên kết nhanh -->
+            <div class="col-6 col-md-3 col-lg-2">
+                <span class="footer-heading">Liên kết nhanh</span>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fa-regular fa-building"></i>Về chúng tôi</a></li>
+                    <li><a href="#"><i class="fa-solid fa-store"></i>Hệ thống cửa hàng</a></li>
+                    <li><a href="#"><i class="fa-solid fa-user-tie"></i>Tuyển dụng</a></li>
+                    <li><a href="#"><i class="fa-solid fa-newspaper"></i>Tin công nghệ</a></li>
+                    <li><a href="#"><i class="fa-solid fa-tag"></i>Khuyến mãi</a></li>
+                    <li><a href="#"><i class="fa-solid fa-star"></i>Đánh giá sản phẩm</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 3: Chính sách -->
+            <div class="col-6 col-md-3 col-lg-2">
+                <span class="footer-heading">Chính sách</span>
+                <ul class="footer-links">
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Đổi trả trong 30 ngày</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Trả góp 0%</a></li>
+                    <li><a href="#">Giao hàng miễn phí</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 4: Liên hệ -->
+            <div class="col-12 col-md-6 col-lg-5">
+                <span class="footer-heading">Liên hệ &amp; Hỗ trợ</span>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <div>
-                        <h4 class="text-white">Address</h4>
-                        <p class="mb-2">123 Street New York.USA</p>
+                        <div class="contact-label">Địa chỉ</div>
+                        <div class="contact-value">168 Nguyễn Thái Học, Ba Đình, Hà Nội</div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="rounded p-4">
-                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                         style="width: 70px; height: 70px;">
-                        <i class="fas fa-envelope fa-2x text-primary"></i>
-                    </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-headset"></i></div>
                     <div>
-                        <h4 class="text-white">Mail Us</h4>
-                        <p class="mb-2">info@example.com</p>
+                        <div class="contact-label">Hotline mua hàng (8:00 – 22:00)</div>
+                        <div class="contact-value hotline"><a href="tel:18006789" style="color:inherit;text-decoration:none;">1800 6789</a></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="rounded p-4">
-                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                         style="width: 70px; height: 70px;">
-                        <i class="fa fa-phone-alt fa-2x text-primary"></i>
-                    </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
                     <div>
-                        <h4 class="text-white">Telephone</h4>
-                        <p class="mb-2">(+012) 3456 7890</p>
+                        <div class="contact-label">Hotline khiếu nại (8:00 – 22:00)</div>
+                        <div class="contact-value hotline"><a href="tel:18006790" style="color:inherit;text-decoration:none;">1800 6790</a></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="rounded p-4">
-                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                         style="width: 70px; height: 70px;">
-                        <i class="fab fa-firefox-browser fa-2x text-primary"></i>
-                    </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
                     <div>
-                        <h4 class="text-white">Yoursite@ex.com</h4>
-                        <p class="mb-2">(+012) 3456 7890</p>
+                        <div class="contact-label">Email hỗ trợ</div>
+                        <div class="contact-value">hotro@techshop.vn</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <div class="footer-item">
-                        <h4 class="text-primary mb-4">Newsletter</h4>
-                        <p class="mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit
-                            amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                        <div class="position-relative mx-auto rounded-pill">
-                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                                   placeholder="Enter your email">
-                            <button type="button"
-                                    class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">
-                                SignUp
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
+        </div><!-- /row -->
+        <hr class="footer-divider"/>
+    </div>
+</footer>
+
+<!-- ===== FOOTER BOTTOM ===== -->
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row align-items-center g-2">
+            <div class="col-12 col-md-6 text-center text-md-start">
+                <p>© 2025 <a href="#">TechShop</a>. Tất cả quyền được bảo lưu. GPKD số: 0123456789.</p>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="text-primary mb-4">Customer Service</h4>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Contact Us</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Returns</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Site Map</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Testimonials</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> My Account</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Unsubscribe Notification</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="text-primary mb-4">Information</h4>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> About Us</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Delivery infomation</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Warranty</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> FAQ</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Seller Login</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="text-primary mb-4">Extras</h4>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Brands</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Gift Vouchers</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Affiliates</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Wishlist</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
-                    <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
+            <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+                <div class="payment-badges">
+                    <div class="payment-badge visa"><i class="fa-brands fa-cc-visa"></i> Visa</div>
+                    <div class="payment-badge master"><i class="fa-brands fa-cc-mastercard"></i> Mastercard</div>
+                    <div class="payment-badge momo"><i class="fa-solid fa-wallet"></i> MoMo</div>
+                    <div class="payment-badge vnpay"><i class="fa-solid fa-qrcode"></i> VNPay</div>
+                    <div class="payment-badge zalopay"><i class="fa-solid fa-mobile-screen"></i> ZaloPay</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Footer End -->
-
-
-<!-- Copyright Start -->
-<div class="container-fluid copyright py-4">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-start mb-md-0">
-                    <span class="text-white"><a href="#" class="border-bottom text-white"><i
-                            class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right
-                        reserved.</span>
-            </div>
-            <div class="col-md-6 text-center text-md-end text-white">
-
-                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>.
-                Distributed By <a class="border-bottom text-white" href="https://themewagon.com">ThemeWagon</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Copyright End -->
-
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
@@ -386,6 +367,8 @@
 <!-- Template Javascript -->
 <script src="/assets/jsClient/main.js"></script>
 <script src="/assets/jsClient/auth.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

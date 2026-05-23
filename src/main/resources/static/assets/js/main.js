@@ -49,3 +49,46 @@ if(typeof PerfectScrollbar == 'function') {
 
 // Scroll into active sidebar
 document.querySelector('.sidebar-item.active').scrollIntoView(false)
+// Sort pills toggle
+document.querySelectorAll('.sort-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.sort-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    });
+});
+
+// Wishlist toggle
+document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const icon = btn.querySelector('i');
+        icon.classList.toggle('fa-regular');
+        icon.classList.toggle('fa-solid');
+        btn.style.color = icon.classList.contains('fa-solid') ? '#ef4444' : '';
+    });
+});
+
+// Range slider dual handle
+const rangeMin = document.getElementById('rangeMin');
+const rangeMax = document.getElementById('rangeMax');
+const rangeFill = document.getElementById('rangeFill');
+const priceMin = document.getElementById('priceMin');
+const priceMax = document.getElementById('priceMax');
+const MAX_PRICE = 100;
+
+function formatPrice(val) {
+    return (val * 1000000).toLocaleString('vi-VN') + '';
+}
+
+function updateRange() {
+    let min = parseInt(rangeMin.value);
+    let max = parseInt(rangeMax.value);
+    if (min > max - 5) { rangeMin.value = max - 5; min = max - 5; }
+    rangeFill.style.left  = (min / MAX_PRICE * 100) + '%';
+    rangeFill.style.right = ((MAX_PRICE - max) / MAX_PRICE * 100) + '%';
+    priceMin.value = formatPrice(min);
+    priceMax.value = formatPrice(max);
+}
+
+rangeMin.addEventListener('input', updateRange);
+rangeMax.addEventListener('input', updateRange);
+updateRange();
