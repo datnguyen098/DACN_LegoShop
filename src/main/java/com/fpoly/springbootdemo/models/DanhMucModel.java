@@ -54,6 +54,6 @@ public class DanhMucModel {
         this.ngayCapNhat = LocalDateTime.now();
     }
 
-@OneToMany(mappedBy = "danhMuc", fetch = FetchType.LAZY)
-private List<SanPhamModel> sanPhams;
+    @OneToMany(mappedBy = "danhMuc", fetch = FetchType.LAZY)
+    private List<SanPhamModel> sanPhams;
 }

@@ -47,48 +47,100 @@
 <!-- Spinner End -->
 
 
-<div class="container-fluid d-none d-lg-block" style="background-color: #f28b00;">
+<div class="container-fluid d-none d-lg-block lego-topbar">
 
-    <!-- Topbar: Logo + Search + Giỏ hàng -->
-    <div class="row gx-0 align-items-center justify-content-center px-0" style="padding-top: 1px !important; padding-bottom: 1px !important;">
-        <!-- Logo -->
-        <div class="col-lg-2 text-lg-start p-0 m-0">
-            <a href="" class="navbar-brand p-0 m-0" style="margin: 0 !important;">
-                <img src="uploads/anhLogo.png" style="height: 100px; width: auto; object-fit: contain; display: block; padding: 0; margin: -16px;">
+    <div class="row gx-0 align-items-center lego-topbar-row px-4">
+
+        <!-- BÊN TRÁI: Logo + Tìm kiếm -->
+        <div class="col-lg-8 d-flex align-items-center">
+
+            <!-- Logo -->
+            <a href="" class="navbar-brand p-0 m-0 lego-logo-wrap">
+                <img src="uploads/anhLogo.png" class="lego-logo-img">
             </a>
-        </div>
 
-        <!-- Thanh tìm kiếm -->
-        <div class="col-lg-6 px-3">
-            <div class="d-flex rounded-pill bg-white px-3 py-1">
-            <span class="d-flex align-items-center text-muted me-2">
-                <i class="fas fa-search"></i>
-            </span>
-                <input class="form-control border-0 bg-transparent w-100 py-1"
-                       type="text" placeholder="Nhập từ khóa để tìm kiếm (ví dụ: lắp ráp, mô hình, ba lô,...)">
+            <!-- Thanh tìm kiếm -->
+            <div class="lego-search-wrap flex-grow-1 ms-4">
+                <form class="lego-search-box" action="" method="get">
+                    <input class="lego-search-input"
+                           type="text"
+                           name="keyword"
+                           placeholder="Tìm kiếm LEGO City, Technic, Star Wars...">
+
+                    <button type="submit" class="lego-search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
+
         </div>
 
-        <!-- Đăng nhập + Giỏ hàng -->
-        <div class="col-lg-3 d-flex align-items-center justify-content-end gap-3">
-            <button type="button" id="btnShowAuth"
-                    class="btn btn-success rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold">
-                <i class="fas fa-user-circle fs-5"></i>
-                <span>Đăng Nhập</span>
-            </button>
-            <button type="button" id="btnLogout"
-                    class="btn btn-outline-light rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold d-none">
-                <i class="fas fa-sign-out-alt fs-5"></i>
-                <span>Đăng Xuất</span>
-            </button>
-            <a href="" class="btn btn-warning rounded-pill py-2 px-4 d-flex align-items-center gap-2 text-nowrap fw-bold">
-                <i class="fas fa-shopping-cart fs-5"></i>
-                <span>Giỏ Hàng</span>
-            </a>
+        <!-- BÊN PHẢI: Yêu thích + Giỏ hàng + Tài khoản -->
+        <div class="col-lg-4 d-flex justify-content-end">
+
+            <div class="lego-header-actions">
+
+                <!-- Yêu thích -->
+                <button type="button" id="btnFavorite" class="lego-header-btn">
+                    <div class="lego-header-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+
+                    <div class="lego-header-text">
+                        <span>Yêu thích</span>
+                        <strong>
+                            <span id="favoriteCount">0</span> sản phẩm
+                        </strong>
+                    </div>
+                </button>
+
+                <!-- Giỏ hàng -->
+                <button type="button" id="btnCart" class="lego-header-btn lego-cart-btn">
+                    <div class="lego-header-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+
+                    <div class="lego-header-text">
+                        <span>Giỏ hàng</span>
+                        <strong>
+                            <span id="cartTotal">0</span>đ
+                        </strong>
+                    </div>
+
+                    <span class="lego-cart-badge" id="cartCount">0</span>
+                </button>
+
+                <!-- Đăng nhập -->
+                <button type="button" id="btnShowAuth" class="lego-header-btn">
+                    <div class="lego-header-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="lego-header-text">
+                        <span>Tài khoản</span>
+                        <strong>Đăng nhập</strong>
+                    </div>
+                </button>
+
+                <!-- Đăng xuất -->
+                <button type="button" id="btnLogout" class="lego-header-btn d-none">
+                    <div class="lego-header-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+
+                    <div class="lego-header-text">
+                        <span>Tài khoản</span>
+                        <strong>Đăng xuất</strong>
+                    </div>
+                </button>
+
+            </div>
+
         </div>
 
     </div>
-    </div>
+
+</div>
 
     <!-- Navbar: Menu -->
     <div class="row gx-0 justify-content-center" style="border-top: 1px solid rgba(255,255,255,0.2);">
@@ -114,12 +166,17 @@
                                 </span>
                                 Sản Phẩm
                             </a>
-                            <div class="dropdown-menu m-0 d-flex flex-row flex-wrap" style="min-width: 500px;">
-                                <a class=" px-2 py-1 w-auto dropdown-item"
-                                   th:each="tenDM, stt : ${list}" href="#">
-                                    <span th:text="${tenDM}"></span>
-                                    (<span th:text="${stt.count}"></span>)
-                                </a>
+                            <div class="dropdown-menu m-0 p-3" id="dropdown-sanpham" style="min-width: max-content;">
+                                <div class="d-flex" id="cat-columns">
+                                    <a class="dropdown-item px-3 py-2 d-none"
+                                       th:each="tenDM, stt : ${list}"
+                                       th:data-index="${stt.index}"
+                                       href="#">
+                                        <span class="cat-dot me-2"></span>
+                                        <span th:text="${tenDM}"></span>
+                                        <span class="text-muted ms-2 small" th:text="${stt.count}"></span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

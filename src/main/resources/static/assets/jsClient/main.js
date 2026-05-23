@@ -177,3 +177,22 @@
 
 })(jQuery);
 
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.getElementById('cat-columns');
+    if (!container) return;
+
+    const items = Array.from(container.querySelectorAll('a.dropdown-item'));
+    items.forEach(item => item.classList.remove('d-none'));
+
+    // Tính vị trí đúng ngay dưới navbar cam
+    const orangeNav = document.querySelector('.navbar-orange')
+        || document.querySelector('nav.bg-warning')
+        || document.querySelector('.navbar:last-of-type')
+        || document.querySelectorAll('nav')[1]; // navbar thứ 2 (navbar cam)
+
+    const dropdown = document.getElementById('dropdown-sanpham');
+    if (orangeNav && dropdown) {
+        const bottom = orangeNav.getBoundingClientRect().bottom;
+        dropdown.style.top = bottom + 'px';
+    }
+});

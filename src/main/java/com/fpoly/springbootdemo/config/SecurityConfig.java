@@ -48,7 +48,6 @@ public class SecurityConfig {
                                 "/assets/**",
                                 "/uploads/**"
                         ).permitAll()
-                        .requestMatchers("/legoshop/admin/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/legoshop/**").permitAll()
                         // Các đường dẫn khác bắt buộc đăng nhập
                         .anyRequest().authenticated()
