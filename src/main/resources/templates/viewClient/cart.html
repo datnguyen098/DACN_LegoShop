@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng LEGO</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+<style>:root {
+    --primary-orange: #FF6B00;
+    --primary-orange-dark: #F26522;
+    --page-bg: #F8F9FA;
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #edf0f3;
+}
+
+body {
+    background-color: var(--page-bg);
+    color: var(--text-dark);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.cart-page {
+    min-height: 100vh;
+}
+
+/* Breadcrumb */
+.cart-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.cart-breadcrumb a {
+    color: var(--primary-orange);
+    font-weight: 700;
+}
+
+/* Title */
+.cart-title {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--text-dark);
+}
+
+.cart-title i {
+    color: var(--primary-orange);
+}
+
+.cart-subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.cart-count {
+    align-items: center;
+    background-color: #fff3e8;
+    color: var(--primary-orange);
+    padding: 9px 17px;
+    border-radius: 999px;
+    font-weight: 800;
+    border: 1px solid #ffd9bf;
+}
+
+/* Toolbar */
+.cart-toolbar {
+    border: 1px solid var(--border-color);
+}
+
+.btn-delete-selected {
+    border: none;
+    background-color: #fff3e8;
+    color: var(--primary-orange);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.btn-delete-selected:hover {
+    background-color: var(--primary-orange);
+    color: #fff;
+}
+
+/* Checkbox */
+.custom-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.custom-check input {
+    display: none;
+}
+
+.custom-check span {
+    width: 21px;
+    height: 21px;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.custom-check input:checked + span {
+    background-color: var(--primary-orange);
+    border-color: var(--primary-orange);
+}
+
+.custom-check input:checked + span::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #fff;
+    font-size: 12px;
+}
+
+/* Cart item */
+.cart-item {
+    border: 1px solid var(--border-color);
+    transition: all 0.25s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 107, 0, 0.12) !important;
+    border-color: rgba(255, 107, 0, 0.25);
+}
+
+.cart-img {
+    width: 145px;
+    height: 105px;
+    object-fit: contain;
+    border-radius: 18px;
+    background-color: #f9fafb;
+    border: 1px solid var(--border-color);
+    padding: 8px;
+}
+
+.product-name {
+    font-size: 17px;
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1.35;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+.product-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.product-meta span {
+    background-color: #f3f4f6;
+    color: var(--text-muted);
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.promo-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #fff3e8;
+    color: var(--primary-orange);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 999px;
+}
+
+.item-price {
+    color: var(--text-dark);
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.item-total {
+    color: var(--primary-orange);
+    font-weight: 900;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+/* Quantity */
+.quantity-box {
+    width: 124px;
+    height: 40px;
+    border: 1px solid #ffd6b8;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.quantity-box button {
+    width: 38px;
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    color: var(--primary-orange);
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.quantity-box button:hover {
+    background-color: #fff3e8;
+}
+
+.quantity-box input {
+    width: 48px;
+    height: 100%;
+    border: none;
+    border-left: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    outline: none;
+    text-align: center;
+    font-weight: 900;
+    color: var(--text-dark);
+    background-color: #fff;
+}
+
+/* Remove */
+.remove-btn {
+    width: 39px;
+    height: 39px;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #6b7280;
+    transition: all 0.25s ease;
+}
+
+.remove-btn:hover {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border-color: #fecaca;
+}
+
+/* Summary */
+.order-summary {
+    border: 1px solid var(--border-color);
+    position: sticky;
+    top: 20px;
+}
+
+.summary-title {
+    font-size: 21px;
+    font-weight: 900;
+    color: var(--text-dark);
+}
+
+.summary-title i {
+    color: var(--primary-orange);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.summary-row strong {
+    color: var(--text-dark);
+    font-weight: 900;
+}
+
+.free-ship {
+    color: #16a34a !important;
+}
+
+.summary-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 22px 0;
+}
+
+/* Voucher */
+.voucher-label {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.voucher-input {
+    border-radius: 14px 0 0 14px;
+    border-color: #ffd6b8;
+    height: 46px;
+    box-shadow: none !important;
+}
+
+.voucher-input:focus {
+    border-color: var(--primary-orange);
+}
+
+.voucher-btn {
+    background-color: var(--primary-orange);
+    color: #fff;
+    border-radius: 0 14px 14px 0;
+    padding: 0 18px;
+    font-weight: 900;
+    border: none;
+}
+
+.voucher-btn:hover {
+    background-color: var(--primary-orange-dark);
+    color: #fff;
+}
+
+/* Promotion */
+.promotion-box {
+    padding: 15px;
+    border-radius: 18px;
+    background-color: #fffaf6;
+    border: 1px solid #ffe0c7;
+}
+
+.promotion-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--text-dark);
+}
+
+.promotion-title i {
+    color: var(--primary-orange);
+}
+
+.promotion-view-more {
+    border: none;
+    background-color: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0;
+}
+
+.promotion-view-more:hover {
+    color: var(--primary-orange);
+}
+
+.promotion-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    border-radius: 16px;
+    background-color: #fff;
+    border: 1px solid #edf0f3;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-bottom: 10px;
+}
+
+.promotion-item:last-child {
+    margin-bottom: 0;
+}
+
+.promotion-item input {
+    display: none;
+}
+
+.promotion-item:hover {
+    border-color: rgba(255, 107, 0, 0.35);
+    box-shadow: 0 8px 22px rgba(255, 107, 0, 0.08);
+}
+
+.promotion-item.active {
+    border-color: var(--primary-orange);
+    background-color: #fff4eb;
+}
+
+.promotion-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    background-color: #fff3e8;
+    color: var(--primary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.promotion-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.promotion-name {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+.promotion-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 3px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.promotion-check {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+.promotion-item.active .promotion-check {
+    background-color: var(--primary-orange);
+}
+
+/* Total */
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-total span {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--text-dark);
+}
+
+.summary-total strong {
+    font-size: 25px;
+    font-weight: 950;
+    color: var(--primary-orange);
+}
+
+.checkout-btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #FF6B00, #F24500);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    box-shadow: 0 12px 25px rgba(255, 107, 0, 0.28);
+    transition: all 0.25s ease;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 35px rgba(255, 107, 0, 0.36);
+}
+
+.safe-checkout {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.safe-checkout i {
+    color: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .order-summary {
+        position: static;
+    }
+}
+
+@media (max-width: 767px) {
+    .cart-title {
+        font-size: 24px;
+    }
+
+    .cart-img {
+        width: 110px;
+        height: 90px;
+    }
+
+    .product-name {
+        font-size: 15px;
+    }
+
+    .quantity-box {
+        margin-left: 0 !important;
+    }
+
+    .item-price,
+    .item-total {
+        text-align: left;
+    }
+
+    .summary-total strong {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 575px) {
+    .cart-img {
+        width: 95px;
+        height: 80px;
+    }
+
+    .btn-delete-selected {
+        width: 100%;
+    }
+
+    .voucher-btn {
+        padding: 0 12px;
+    }
+}</style>
+<body>
+
+<main class="cart-page py-4">
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <div class="cart-breadcrumb mb-3">
+            <a th:href="@{/legoshop}" class="text-decoration-none">Trang chủ</a>
+            <span>/</span>
+            <span>Giỏ hàng</span>
+        </div>
+
+        <!-- Title -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <h2 class="cart-title mb-1">
+                    <i class="fa-solid fa-cart-shopping me-2"></i>
+                    Giỏ hàng của bạn
+                </h2>
+                <p class="cart-subtitle mb-0">Kiểm tra sản phẩm trước khi thanh toán</p>
+            </div>
+
+            <span class="cart-count d-none d-md-inline-flex">
+                <i class="fa-solid fa-bag-shopping me-2"></i>
+                <span id="cartCount">3 sản phẩm</span>
+            </span>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- LEFT -->
+            <div class="col-lg-8">
+
+                <!-- Toolbar -->
+                <div class="cart-toolbar bg-white rounded-4 shadow-sm p-3 mb-3">
+                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                        <label class="custom-check mb-0">
+                            <input type="checkbox" id="selectAll" checked>
+                            <span></span>
+                            Chọn tất cả sản phẩm
+                        </label>
+
+                        <button type="button" class="btn-delete-selected" id="deleteSelectedBtn">
+                            <i class="fa-regular fa-trash-can me-1"></i>
+                            Xóa các mục đã chọn
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 1 -->
+                <div class="cart-item bg-white rounded-4 shadow-sm p-3 mb-3" data-price="9990000">
+                    <div class="row align-items-center g-3">
+
+                        <div class="col-auto">
+                            <label class="custom-check">
+                                <input type="checkbox" class="item-check" checked>
+                                <span></span>
+                            </label>
+                        </div>
+
+                        <div class="col-auto">
+                            <img th:src="@{/images/products/lego-ferrari.png}"
+                                 src="/images/products/lego-ferrari.png"
+                                 alt="LEGO Technic Ferrari Daytona SP3"
+                                 class="cart-img">
+                        </div>
+
+                        <div class="col">
+                            <div class="product-info">
+                                <h5 class="product-name mb-2">
+                                    LEGO Technic Ferrari Daytona SP3
+                                </h5>
+
+                                <div class="product-meta mb-2">
+                                    <span>Dòng: Technic</span>
+                                    <span>Số mảnh: 3778</span>
+                                </div>
+
+                                <span class="promo-tag">
+                                    <i class="fa-solid fa-tag me-1"></i>
+                                    Giảm thêm 300.000đ
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-center">
+                            <div class="item-price">9.990.000đ</div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="quantity-box mx-md-auto">
+                                <button type="button" class="qty-minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                                <input type="text" class="qty-input" value="1" readonly>
+
+                                <button type="button" class="qty-plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-end">
+                            <div class="item-total">9.990.000đ</div>
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="button" class="remove-btn" title="Xóa sản phẩm">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="cart-item bg-white rounded-4 shadow-sm p-3 mb-3" data-price="4990000">
+                    <div class="row align-items-center g-3">
+
+                        <div class="col-auto">
+                            <label class="custom-check">
+                                <input type="checkbox" class="item-check" checked>
+                                <span></span>
+                            </label>
+                        </div>
+
+                        <div class="col-auto">
+                            <img th:src="@{/images/products/lego-millennium-falcon.png}"
+                                 src="/images/products/lego-millennium-falcon.png"
+                                 alt="LEGO Star Wars Millennium Falcon"
+                                 class="cart-img">
+                        </div>
+
+                        <div class="col">
+                            <div class="product-info">
+                                <h5 class="product-name mb-2">
+                                    LEGO Star Wars Millennium Falcon
+                                </h5>
+
+                                <div class="product-meta mb-2">
+                                    <span>Dòng: Star Wars</span>
+                                    <span>Số mảnh: 1351</span>
+                                </div>
+
+                                <span class="promo-tag">
+                                    <i class="fa-solid fa-gift me-1"></i>
+                                    Tặng mô hình mini
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-center">
+                            <div class="item-price">4.990.000đ</div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="quantity-box mx-md-auto">
+                                <button type="button" class="qty-minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                                <input type="text" class="qty-input" value="1" readonly>
+
+                                <button type="button" class="qty-plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-end">
+                            <div class="item-total">4.990.000đ</div>
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="button" class="remove-btn" title="Xóa sản phẩm">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="cart-item bg-white rounded-4 shadow-sm p-3" data-price="8990000">
+                    <div class="row align-items-center g-3">
+
+                        <div class="col-auto">
+                            <label class="custom-check">
+                                <input type="checkbox" class="item-check" checked>
+                                <span></span>
+                            </label>
+                        </div>
+
+                        <div class="col-auto">
+                            <img th:src="@{/images/products/lego-ninjago-city.png}"
+                                 src="/images/products/lego-ninjago-city.png"
+                                 alt="LEGO NINJAGO City Markets"
+                                 class="cart-img">
+                        </div>
+
+                        <div class="col">
+                            <div class="product-info">
+                                <h5 class="product-name mb-2">
+                                    LEGO NINJAGO City Markets
+                                </h5>
+
+                                <div class="product-meta mb-2">
+                                    <span>Dòng: NINJAGO</span>
+                                    <span>Số mảnh: 6163</span>
+                                </div>
+
+                                <span class="promo-tag">
+                                    <i class="fa-solid fa-bolt me-1"></i>
+                                    Flash Sale
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-center">
+                            <div class="item-price">8.990.000đ</div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="quantity-box mx-md-auto">
+                                <button type="button" class="qty-minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+
+                                <input type="text" class="qty-input" value="1" readonly>
+
+                                <button type="button" class="qty-plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-md-end">
+                            <div class="item-total">8.990.000đ</div>
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="button" class="remove-btn" title="Xóa sản phẩm">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-lg-4">
+                <div class="order-summary bg-white rounded-4 shadow-sm p-4">
+
+                    <h4 class="summary-title mb-4">
+                        <i class="fa-solid fa-receipt me-2"></i>
+                        Tóm tắt đơn hàng
+                    </h4>
+
+                    <div class="summary-row">
+                        <span>Tạm tính</span>
+                        <strong id="subtotalText">23.970.000đ</strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Phí vận chuyển</span>
+                        <strong class="free-ship">Miễn phí</strong>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Voucher -->
+                    <div class="voucher-box">
+                        <label class="voucher-label mb-2">Mã giảm giá</label>
+
+                        <div class="input-group">
+                            <input type="text"
+                                   class="form-control voucher-input"
+                                   placeholder="Nhập mã voucher">
+
+                            <button class="btn voucher-btn" type="button">
+                                Áp dụng
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Promotions -->
+                    <div class="promotion-box mt-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="promotion-title mb-0">
+                                <i class="fa-solid fa-tags me-2"></i>
+                                Chọn khuyến mãi
+                            </h6>
+
+                            <button type="button" class="promotion-view-more">
+                                Xem thêm
+                            </button>
+                        </div>
+
+                        <label class="promotion-item active">
+                            <input type="radio" name="promotion" checked>
+
+                            <div class="promotion-icon">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+
+                            <div class="promotion-content">
+                                <div class="promotion-name">Miễn phí vận chuyển</div>
+                                <div class="promotion-desc">Áp dụng cho đơn hàng từ 10.000.000đ</div>
+                            </div>
+
+                            <div class="promotion-check">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </label>
+
+                        <label class="promotion-item">
+                            <input type="radio" name="promotion">
+
+                            <div class="promotion-icon">
+                                <i class="fa-solid fa-percent"></i>
+                            </div>
+
+                            <div class="promotion-content">
+                                <div class="promotion-name">Giảm 5% tối đa 1.000.000đ</div>
+                                <div class="promotion-desc">Áp dụng cho bộ LEGO từ 5.000.000đ</div>
+                            </div>
+
+                            <div class="promotion-check">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </label>
+
+                        <label class="promotion-item">
+                            <input type="radio" name="promotion">
+
+                            <div class="promotion-icon">
+                                <i class="fa-solid fa-gift"></i>
+                            </div>
+
+                            <div class="promotion-content">
+                                <div class="promotion-name">Tặng gói bảo hành mô hình</div>
+                                <div class="promotion-desc">Dành cho bộ LEGO cao cấp</div>
+                            </div>
+
+                            <div class="promotion-check">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-total">
+                        <span>Tổng tiền</span>
+                        <strong id="totalText">23.970.000đ</strong>
+                    </div>
+
+                    <button type="button" class="checkout-btn mt-4">
+                        Tiến hành thanh toán
+                        <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </button>
+
+                    <div class="safe-checkout mt-3">
+                        <i class="fa-solid fa-shield-halved me-2"></i>
+                        Thanh toán an toàn & bảo mật
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Main JS -->
+<script>document.addEventListener('DOMContentLoaded', function () {
+    const formatVND = function (number) {
+        return number.toLocaleString('vi-VN') + 'đ';
+    };
+
+    const cartItems = document.querySelectorAll('.cart-item');
+    const subtotalText = document.getElementById('subtotalText');
+    const totalText = document.getElementById('totalText');
+    const cartCount = document.getElementById('cartCount');
+    const selectAll = document.getElementById('selectAll');
+    const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+
+    function updateCartTotal() {
+        let subtotal = 0;
+        let count = 0;
+
+        cartItems.forEach(item => {
+            if (item.style.display === 'none') return;
+
+            const price = Number(item.dataset.price || 0);
+            const qtyInput = item.querySelector('.qty-input');
+            const itemTotal = item.querySelector('.item-total');
+            const checkbox = item.querySelector('.item-check');
+
+            const quantity = Number(qtyInput?.value || 1);
+            const lineTotal = price * quantity;
+
+            if (itemTotal) {
+                itemTotal.textContent = formatVND(lineTotal);
+            }
+
+            if (checkbox && checkbox.checked) {
+                subtotal += lineTotal;
+            }
+
+            count++;
+        });
+
+        if (subtotalText) {
+            subtotalText.textContent = formatVND(subtotal);
+        }
+
+        if (totalText) {
+            totalText.textContent = formatVND(subtotal);
+        }
+
+        if (cartCount) {
+            cartCount.textContent = count + '   ';
+        }
+    }
+
+    // Tăng giảm số lượng
+    cartItems.forEach(item => {
+        const minusBtn = item.querySelector('.qty-minus');
+        const plusBtn = item.querySelector('.qty-plus');
+        const qtyInput = item.querySelector('.qty-input');
+        const removeBtn = item.querySelector('.remove-btn');
+        const checkbox = item.querySelector('.item-check');
+
+        if (minusBtn && qtyInput) {
+            minusBtn.addEventListener('click', function () {
+                let quantity = Number(qtyInput.value || 1);
+
+                if (quantity > 1) {
+                    quantity--;
+                    qtyInput.value = quantity;
+                    updateCartTotal();
+                }
+            });
+        }
+
+        if (plusBtn && qtyInput) {
+            plusBtn.addEventListener('click', function () {
+                let quantity = Number(qtyInput.value || 1);
+                quantity++;
+                qtyInput.value = quantity;
+                updateCartTotal();
+            });
+        }
+
+        if (removeBtn) {
+            removeBtn.addEventListener('click', function () {
+                item.style.display = 'none';
+                updateCartTotal();
+            });
+        }
+
+        if (checkbox) {
+            checkbox.addEventListener('change', function () {
+                updateCartTotal();
+            });
+        }
+    });
+
+    // Chọn tất cả
+    if (selectAll) {
+        selectAll.addEventListener('change', function () {
+            const checked = this.checked;
+
+            document.querySelectorAll('.item-check').forEach(checkbox => {
+                checkbox.checked = checked;
+            });
+
+            updateCartTotal();
+        });
+    }
+
+    // Xóa các mục đã chọn
+    if (deleteSelectedBtn) {
+        deleteSelectedBtn.addEventListener('click', function () {
+            document.querySelectorAll('.cart-item').forEach(item => {
+                const checkbox = item.querySelector('.item-check');
+
+                if (checkbox && checkbox.checked) {
+                    item.style.display = 'none';
+                }
+            });
+
+            updateCartTotal();
+        });
+    }
+
+    // Chọn khuyến mãi
+    const promotionItems = document.querySelectorAll('.promotion-item');
+
+    if (promotionItems.length > 0) {
+        promotionItems.forEach(item => {
+            item.addEventListener('click', function () {
+                promotionItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                }
+            });
+        });
+    }
+
+    updateCartTotal();
+});</script>
+
+</body>
+</html>

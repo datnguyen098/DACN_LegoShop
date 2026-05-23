@@ -48,6 +48,8 @@ public class SecurityConfig {
                                 "/assets/**",
                                 "/uploads/**"
                         ).permitAll()
+                        // chỉ customer mới được truy cập
+                        .requestMatchers("/legoshop/cart/**").authenticated()
                         .requestMatchers("/legoshop/**").permitAll()
                         // Các đường dẫn khác bắt buộc đăng nhập
                         .anyRequest().authenticated()

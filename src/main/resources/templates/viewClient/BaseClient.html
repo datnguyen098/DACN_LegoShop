@@ -97,20 +97,23 @@
                 </button>
 
                 <!-- Giỏ hàng -->
-                <button type="button" id="btnCart" class="lego-header-btn lego-cart-btn">
-                    <div class="lego-header-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
+                <a th:href="@{/legoshop/gio-hang}">
+                    <button type="button" id="btnCart" class="lego-header-btn lego-cart-btn">
+                        <div class="lego-header-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
 
-                    <div class="lego-header-text">
-                        <span>Giỏ hàng</span>
-                        <strong>
-                            <span id="cartTotal">0</span>đ
-                        </strong>
-                    </div>
+                        <div class="lego-header-text">
+                            <span>Giỏ hàng</span>
+                            <strong>
+                                <span id="cartTotal">0</span>đ
+                            </strong>
+                        </div>
 
-                    <span class="lego-cart-badge" id="cartCount">0</span>
-                </button>
+                        <span class="lego-cart-badge" id="cartCount">0</span>
+                    </button>
+
+                </a>
 
                 <!-- Đăng nhập -->
                 <button type="button" id="btnShowAuth" class="lego-header-btn">
