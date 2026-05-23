@@ -1,40 +1,143 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="uploads/iconLegoShop.png">
-    <title>Electro - Electronics Website Template</title>
+
+    <!-- FIX LOGO/FAVICON: dùng đường dẫn tuyệt đối qua Thymeleaf -->
+    <link rel="icon" th:href="@{/uploads/iconLegoShop.png}" href="/uploads/iconLegoShop.png">
+
+    <title>LegoShop - Cửa hàng LEGO chính hãng</title>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="LEGO, LegoShop, LEGO Technic, LEGO City, LEGO Star Wars" name="keywords">
+    <meta content="LegoShop - Cửa hàng bán LEGO chính hãng, nhiều bộ sưu tập LEGO hấp dẫn." name="description">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
             rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="/assets/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- FontAwesome 6 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/assets/css/formClient/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/assets/lib/animate/animate.min.css}" href="/assets/lib/animate/animate.min.css" rel="stylesheet">
+    <link th:href="@{/assets/lib/owlcarousel/assets/owl.carousel.min.css}" href="/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS local/custom -->
+    <link th:href="@{/assets/css/formClient/bootstrap.min.css}" href="/assets/css/formClient/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="/assets/css/formClient/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="/assets/css/formClient/auth-modal.css" rel="stylesheet">
+    <link th:href="@{/assets/css/formClient/style.css}" href="/assets/css/formClient/style.css" rel="stylesheet">
+    <link th:href="@{/assets/css/formClient/auth-modal.css}" href="/assets/css/formClient/auth-modal.css" rel="stylesheet">
+
+    <style>
+        /*
+         * FIX 1:
+         * Dropdown danh mục bị xanh do Bootstrap .dropdown-item.active/.focus.
+         * Ép lại màu cam LegoShop.
+         */
+        #dropdown-sanpham .dropdown-item,
+        .navbar .dropdown-menu .dropdown-item {
+            color: #1C1C1E !important;
+            background-color: transparent !important;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        #dropdown-sanpham .dropdown-item:hover,
+        .navbar .dropdown-menu .dropdown-item:hover {
+            color: #FF6B00 !important;
+            background-color: #FFF3EA !important;
+        }
+
+        #dropdown-sanpham .dropdown-item:focus,
+        #dropdown-sanpham .dropdown-item:active,
+        #dropdown-sanpham .dropdown-item.active,
+        .navbar .dropdown-menu .dropdown-item:focus,
+        .navbar .dropdown-menu .dropdown-item:active,
+        .navbar .dropdown-menu .dropdown-item.active {
+            color: #FF6B00 !important;
+            background-color: #FFF3EA !important;
+        }
+
+        #dropdown-sanpham .dropdown-item .text-muted {
+            color: #6b7280 !important;
+        }
+
+        #dropdown-sanpham .dropdown-item:hover .text-muted,
+        #dropdown-sanpham .dropdown-item:focus .text-muted,
+        #dropdown-sanpham .dropdown-item:active .text-muted,
+        #dropdown-sanpham .dropdown-item.active .text-muted {
+            color: #FF6B00 !important;
+        }
+
+        /*
+         * FIX 2:
+         * Nút giỏ hàng chuyển từ <a><button></button></a>
+         * sang thẻ <a> có class button.
+         */
+        .lego-header-actions .lego-header-btn {
+            text-decoration: none;
+        }
+
+        .lego-header-actions a.lego-header-btn {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .lego-header-actions a.lego-header-btn:hover {
+            text-decoration: none;
+        }
+
+        /*
+         * Logo luôn giữ kích thước ổn định.
+         */
+        .lego-logo-img {
+            max-height: 74px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lego-logo-wrap {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /*
+         * Footer đổi sang tone LEGO.
+         */
+        .footer-logo-box {
+            width: 44px;
+            height: 44px;
+            background: #FF6B00;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-box i {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .footer-logo-text span {
+            color: #FF6B00;
+        }
+    </style>
 </head>
 
 <body class="m-0 p-0">
@@ -49,6 +152,7 @@
 <!-- Spinner End -->
 
 
+<!-- Header Start -->
 <div class="container-fluid d-none d-lg-block lego-topbar">
 
     <div class="row gx-0 align-items-center lego-topbar-row px-4">
@@ -57,13 +161,16 @@
         <div class="col-lg-8 d-flex align-items-center">
 
             <!-- Logo -->
-            <a href="" class="navbar-brand p-0 m-0 lego-logo-wrap">
-                <img src="uploads/anhLogo.png" class="lego-logo-img">
+            <a th:href="@{/legoshop}" href="/legoshop" class="navbar-brand p-0 m-0 lego-logo-wrap">
+                <img th:src="@{/uploads/anhLogo.png}"
+                     src="/uploads/anhLogo.png"
+                     class="lego-logo-img"
+                     alt="LegoShop">
             </a>
 
             <!-- Thanh tìm kiếm -->
             <div class="lego-search-wrap flex-grow-1 ms-4">
-                <form class="lego-search-box" action="" method="get">
+                <form class="lego-search-box" th:action="@{/legoshop}" action="/legoshop" method="get">
                     <input class="lego-search-input"
                            type="text"
                            name="keyword"
@@ -96,23 +203,24 @@
                     </div>
                 </button>
 
-                <!-- Giỏ hàng -->
-                <a th:href="@{/legoshop/gio-hang}">
-                    <button type="button" id="btnCart" class="lego-header-btn lego-cart-btn">
-                        <div class="lego-header-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
+                <!-- Giỏ hàng: FIX không bọc button trong a -->
+                <a th:href="@{/legoshop/gio-hang}"
+                   href="/legoshop/gio-hang"
+                   id="btnCart"
+                   class="lego-header-btn lego-cart-btn text-decoration-none">
 
-                        <div class="lego-header-text">
-                            <span>Giỏ hàng</span>
-                            <strong>
-                                <span id="cartTotal">0</span>đ
-                            </strong>
-                        </div>
+                    <div class="lego-header-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
 
-                        <span class="lego-cart-badge" id="cartCount">0</span>
-                    </button>
+                    <div class="lego-header-text">
+                        <span>Giỏ hàng</span>
+                        <strong>
+                            <span id="cartTotal">0</span>đ
+                        </strong>
+                    </div>
 
+                    <span class="lego-cart-badge" id="cartCount">0</span>
                 </a>
 
                 <!-- Đăng nhập -->
@@ -147,89 +255,137 @@
 
 </div>
 
-    <!-- Navbar: Menu -->
-    <div class="row gx-0 justify-content-center" style="border-top: 1px solid rgba(255,255,255,0.2);">
-        <div class="col-12">
-            <nav class="navbar navbar-expand-lg navbar-dark px-5" style="background-color: #f28b00; min-height: 0; padding-top: 4px; padding-bottom: 4px;">
-                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars fa-1x"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
-                    <div class="navbar-nav py-0 align-items-center me-3">
 
-                        <a href="index.html" class="nav-item nav-link text-white">
-                            <i class="bi bi-house-door"></i> Trang Chủ
+<!-- Navbar Start -->
+<div class="row gx-0 justify-content-center" style="border-top: 1px solid rgba(255,255,255,0.2);">
+    <div class="col-12">
+        <nav class="navbar navbar-expand-lg navbar-dark px-5"
+             style="background-color: #f28b00; min-height: 0; padding-top: 4px; padding-bottom: 4px;">
+
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars fa-1x"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+                <div class="navbar-nav py-0 align-items-center me-3">
+
+                    <a th:href="@{/legoshop}" href="/legoshop" class="nav-item nav-link text-white">
+                        <i class="bi bi-house-door"></i>
+                        Trang Chủ
+                    </a>
+
+                    <!-- Sản phẩm -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                            <span class="menu-icon-lv1_container">
+                                <img loading="lazy"
+                                     class="menu-icon-lv1_img"
+                                     src="https://cdn.shopify.com/s/files/1/0731/6514/4343/files/icon-lego.gif?v=1743483192"
+                                     width="25"
+                                     height="25"
+                                     alt="LEGO">
+                            </span>
+                            Sản Phẩm
                         </a>
 
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                                <span class="menu-icon-lv1_container">
-                                    <img loading="lazy" class="menu-icon-lv1_img"
-                                         src="https://cdn.shopify.com/s/files/1/0731/6514/4343/files/icon-lego.gif?v=1743483192"
-                                         width="25" height="25">
-                                </span>
-                                Sản Phẩm
-                            </a>
-                            <div class="dropdown-menu m-0 p-3" id="dropdown-sanpham" style="min-width: max-content;">
-                                <div class="d-flex" id="cat-columns">
-                                    <a class="dropdown-item px-3 py-2 d-none"
-                                       th:each="tenDM, stt : ${list}"
-                                       th:data-index="${stt.index}"
-                                       href="#">
-                                        <span class="cat-dot me-2"></span>
-                                        <span th:text="${tenDM}"></span>
-                                        <span class="text-muted ms-2 small" th:text="${stt.count}"></span>
-                                    </a>
-                                </div>
+                        <div class="dropdown-menu m-0 p-3" id="dropdown-sanpham" style="min-width: max-content;">
+                            <div class="d-flex" id="cat-columns">
+
+                                <a class="dropdown-item px-3 py-2 d-none"
+                                   th:each="tenDM, stt : ${list}"
+                                   th:data-index="${stt.index}"
+                                   href="#">
+                                    <span class="cat-dot me-2"></span>
+                                    <span th:text="${tenDM}">LEGO Technic</span>
+                                    <span class="text-muted ms-2 small" th:text="${stt.count}">1</span>
+                                </a>
+
+                                <!-- Fallback khi chưa có ${list} -->
+                                <a class="dropdown-item px-3 py-2" th:if="${list == null}" href="#">
+                                    <span class="cat-dot me-2"></span>
+                                    LEGO Technic
+                                    <span class="text-muted ms-2 small">1</span>
+                                </a>
+
+                                <a class="dropdown-item px-3 py-2" th:if="${list == null}" href="#">
+                                    <span class="cat-dot me-2"></span>
+                                    LEGO Star Wars
+                                    <span class="text-muted ms-2 small">2</span>
+                                </a>
+
+                                <a class="dropdown-item px-3 py-2" th:if="${list == null}" href="#">
+                                    <span class="cat-dot me-2"></span>
+                                    LEGO City
+                                    <span class="text-muted ms-2 small">3</span>
+                                </a>
+
+                                <a class="dropdown-item px-3 py-2" th:if="${list == null}" href="#">
+                                    <span class="cat-dot me-2"></span>
+                                    LEGO Creator
+                                    <span class="text-muted ms-2 small">4</span>
+                                </a>
+
                             </div>
                         </div>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                                <i class="fa fa-puzzle-piece me-2"></i>Bộ Sưu Tập
-                            </a>
-                            <div class="dropdown-menu m-0">
-                                <a href="bestseller.html" class="dropdown-item">Hàng Bán Chạy</a>
-                                <a href="cart.html" class="dropdown-item">Sản Phẩm Mới</a>
-                                <a href="cheackout.html" class="dropdown-item">Hàng Mới</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                            </div>
-                        </div>
-
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                                <span class="menu-icon-lv1_container">
-                                    <img loading="lazy" class="menu-icon-lv1_img"
-                                         src="https://cdn.shopify.com/s/files/1/0731/6514/4343/files/Animation_-_1712303911997.webp?v=1765341208"
-                                         width="25" height="25">
-                                </span>
-                                Khuyến Mãi
-                            </a>
-                            <div class="dropdown-menu m-0">
-                                <a href="bestseller.html" class="dropdown-item">Hàng Bán Chạy</a>
-                            </div>
-                        </div>
-
-                        <a href="contact.html" class="nav-item nav-link text-white">
-                            <i class="fa fa-envelope me-2"></i>Liên Hệ
-                        </a>
-
                     </div>
 
-                </div>
-            </nav>
-        </div>
-    </div>
+                    <!-- Bộ sưu tập -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                            <i class="fa fa-puzzle-piece me-2"></i>
+                            Bộ Sưu Tập
+                        </a>
 
+                        <div class="dropdown-menu m-0">
+                            <a href="#" class="dropdown-item">LEGO bán chạy</a>
+                            <a href="#" class="dropdown-item">Bộ LEGO mới về</a>
+                            <a href="#" class="dropdown-item">LEGO cao cấp</a>
+                            <a href="#" class="dropdown-item">LEGO cho trẻ em</a>
+                        </div>
+                    </div>
+
+                    <!-- Khuyến mãi -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
+                            <span class="menu-icon-lv1_container">
+                                <img loading="lazy"
+                                     class="menu-icon-lv1_img"
+                                     src="https://cdn.shopify.com/s/files/1/0731/6514/4343/files/Animation_-_1712303911997.webp?v=1765341208"
+                                     width="25"
+                                     height="25"
+                                     alt="Khuyến mãi">
+                            </span>
+                            Khuyến Mãi
+                        </a>
+
+                        <div class="dropdown-menu m-0">
+                            <a href="#" class="dropdown-item">Flash Sale LEGO</a>
+                            <a href="#" class="dropdown-item">Combo LEGO tiết kiệm</a>
+                            <a href="#" class="dropdown-item">Ưu đãi thành viên</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="nav-item nav-link text-white">
+                        <i class="fa fa-envelope me-2"></i>
+                        Liên Hệ
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
-<!-- Navbar & Hero End -->
+<!-- Navbar End -->
+
 
 <!-- Nội dung chính -->
 <div th:if="${content != null}" th:replace="~{${content}}"></div>
 
+
 <!-- Modal đăng nhập / đăng ký -->
 <div th:replace="~{viewClient/fragments/authModal :: authModal}"></div>
+
 
 <!-- Footer Start -->
 <footer class="footer-main">
@@ -239,15 +395,18 @@
             <!-- Cột 1: Giới thiệu -->
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="footer-logo d-flex align-items-center gap-2 mb-1">
-                    <!-- Logo placeholder: thay src bằng logo thực -->
-                    <div style="width:44px;height:44px;background:var(--cam);border-radius:10px;display:flex;align-items:center;justify-content:center;">
-                        <i class="fa-solid fa-microchip text-white" style="font-size:1.2rem;"></i>
+                    <div class="footer-logo-box">
+                        <i class="fa-solid fa-cubes"></i>
                     </div>
-                    <span class="footer-logo-text">Tech<span>Shop</span></span>
+
+                    <span class="footer-logo-text">Lego<span>Shop</span></span>
                 </div>
+
                 <p class="footer-desc">
-                    Hệ thống bán lẻ điện tử &amp; công nghệ hàng đầu Việt Nam. Cam kết sản phẩm chính hãng, giá tốt nhất và dịch vụ hậu mãi tận tâm.
+                    Cửa hàng LEGO chính hãng với nhiều dòng sản phẩm như LEGO Technic, LEGO City, LEGO Star Wars,
+                    LEGO NINJAGO và các bộ sưu tập cao cấp dành cho người chơi ở mọi lứa tuổi.
                 </p>
+
                 <div class="social-links">
                     <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
@@ -260,11 +419,12 @@
             <!-- Cột 2: Liên kết nhanh -->
             <div class="col-6 col-md-3 col-lg-2">
                 <span class="footer-heading">Liên kết nhanh</span>
+
                 <ul class="footer-links">
-                    <li><a href="#"><i class="fa-regular fa-building"></i>Về chúng tôi</a></li>
+                    <li><a href="#"><i class="fa-regular fa-building"></i>Về LegoShop</a></li>
                     <li><a href="#"><i class="fa-solid fa-store"></i>Hệ thống cửa hàng</a></li>
-                    <li><a href="#"><i class="fa-solid fa-user-tie"></i>Tuyển dụng</a></li>
-                    <li><a href="#"><i class="fa-solid fa-newspaper"></i>Tin công nghệ</a></li>
+                    <li><a href="#"><i class="fa-solid fa-cubes"></i>Bộ LEGO mới</a></li>
+                    <li><a href="#"><i class="fa-solid fa-newspaper"></i>Tin LEGO</a></li>
                     <li><a href="#"><i class="fa-solid fa-tag"></i>Khuyến mãi</a></li>
                     <li><a href="#"><i class="fa-solid fa-star"></i>Đánh giá sản phẩm</a></li>
                 </ul>
@@ -273,11 +433,12 @@
             <!-- Cột 3: Chính sách -->
             <div class="col-6 col-md-3 col-lg-2">
                 <span class="footer-heading">Chính sách</span>
+
                 <ul class="footer-links">
                     <li><a href="#">Chính sách bảo hành</a></li>
                     <li><a href="#">Đổi trả trong 30 ngày</a></li>
                     <li><a href="#">Chính sách bảo mật</a></li>
-                    <li><a href="#">Trả góp 0%</a></li>
+                    <li><a href="#">Ưu đãi thành viên</a></li>
                     <li><a href="#">Giao hàng miễn phí</a></li>
                     <li><a href="#">Điều khoản sử dụng</a></li>
                 </ul>
@@ -288,7 +449,10 @@
                 <span class="footer-heading">Liên hệ &amp; Hỗ trợ</span>
 
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
                     <div>
                         <div class="contact-label">Địa chỉ</div>
                         <div class="contact-value">168 Nguyễn Thái Học, Ba Đình, Hà Nội</div>
@@ -296,42 +460,59 @@
                 </div>
 
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fa-solid fa-headset"></i></div>
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+
                     <div>
-                        <div class="contact-label">Hotline mua hàng (8:00 – 22:00)</div>
-                        <div class="contact-value hotline"><a href="tel:18006789" style="color:inherit;text-decoration:none;">1800 6789</a></div>
+                        <div class="contact-label">Hotline mua LEGO (8:00 – 22:00)</div>
+                        <div class="contact-value hotline">
+                            <a href="tel:18006789" style="color:inherit;text-decoration:none;">1800 6789</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+
                     <div>
-                        <div class="contact-label">Hotline khiếu nại (8:00 – 22:00)</div>
-                        <div class="contact-value hotline"><a href="tel:18006790" style="color:inherit;text-decoration:none;">1800 6790</a></div>
+                        <div class="contact-label">Hotline hỗ trợ đơn hàng (8:00 – 22:00)</div>
+                        <div class="contact-value hotline">
+                            <a href="tel:18006790" style="color:inherit;text-decoration:none;">1800 6790</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="contact-icon">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+
                     <div>
                         <div class="contact-label">Email hỗ trợ</div>
-                        <div class="contact-value">hotro@techshop.vn</div>
+                        <div class="contact-value">hotro@legoshop.vn</div>
                     </div>
                 </div>
             </div>
 
-        </div><!-- /row -->
+        </div>
+
         <hr class="footer-divider"/>
     </div>
 </footer>
+<!-- Footer End -->
 
-<!-- ===== FOOTER BOTTOM ===== -->
+
+<!-- Footer Bottom Start -->
 <div class="footer-bottom">
     <div class="container">
         <div class="row align-items-center g-2">
             <div class="col-12 col-md-6 text-center text-md-start">
-                <p>© 2025 <a href="#">TechShop</a>. Tất cả quyền được bảo lưu. GPKD số: 0123456789.</p>
+                <p>© 2026 <a href="#">LegoShop</a>. Tất cả quyền được bảo lưu. GPKD số: 0123456789.</p>
             </div>
+
             <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                 <div class="payment-badges">
                     <div class="payment-badge visa"><i class="fa-brands fa-cc-visa"></i> Visa</div>
@@ -344,34 +525,44 @@
         </div>
     </div>
 </div>
-</div>
-<!-- Footer End -->
+<!-- Footer Bottom End -->
+
+
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a href="#" class="btn btn-primary btn-lg-square back-to-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
 
 
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/lib/wow/wow.min.js"></script>
-<script src="/assets/lib/owlcarousel/owl.carousel.min.js"></script>
-<!--ẩn dropdown khi click bên ngoài-->
-<script>document.addEventListener('click', function (e) {
-    const nav = document.querySelector('#allCat');
-    const toggler = document.querySelector('[data-bs-target="#allCat"]');
 
-    if (!nav.contains(e.target) && !toggler.contains(e.target)) {
-        const collapse = bootstrap.Collapse.getInstance(nav);
-        if (collapse) {
-            collapse.hide();
-        }
-    }
-});</script>
-<!-- Template Javascript -->
-<script src="/assets/jsClient/main.js"></script>
-<script src="/assets/jsClient/auth.js"></script>
-
+<!-- Chỉ giữ 1 bản Bootstrap JS để tránh xung đột -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+<script th:src="@{/assets/lib/wow/wow.min.js}" src="/assets/lib/wow/wow.min.js"></script>
+<script th:src="@{/assets/lib/owlcarousel/owl.carousel.min.js}" src="/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Script click ngoài: viết an toàn, không lỗi nếu không có #allCat -->
+<script>
+    document.addEventListener('click', function (e) {
+        const nav = document.querySelector('#allCat');
+        const toggler = document.querySelector('[data-bs-target="#allCat"]');
+
+        if (!nav || !toggler) return;
+
+        if (!nav.contains(e.target) && !toggler.contains(e.target)) {
+            const collapse = bootstrap.Collapse.getInstance(nav);
+            if (collapse) {
+                collapse.hide();
+            }
+        }
+    });
+</script>
+
+<!-- Template Javascript -->
+<script th:src="@{/assets/jsClient/main.js}" src="/assets/jsClient/main.js"></script>
+<script th:src="@{/assets/jsClient/auth.js}" src="/assets/jsClient/auth.js"></script>
+
+</body>
 </html>
