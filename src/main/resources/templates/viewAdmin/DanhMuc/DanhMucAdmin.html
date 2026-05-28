@@ -1,27 +1,11 @@
-<html>
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản lý danh mục</title>
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/bootstrap.css">
-<link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
-<link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-<link rel="stylesheet" href="/assets/css/app.css">
-<link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
-</head>
-<div id="main" xmlns:th="http://www.thymeleaf.org">
+<div id="main" xmlns:th="http://www.thymeleaf.org" class="admin-category-page w-100 w-full min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col justify-start items-stretch">
 	<header class="mb-3">
-		<a href="#" class="burger-btn d-block d-xl-none"> <i class="bi bi-justify fs-3"></i></a>
+		<a href="#" class="burger-btn d-block d-xl-none">
+			<i class="bi bi-justify fs-3"></i>
+		</a>
 	</header>
 
-	<div class="page-heading">
+	<div class="page-heading w-100">
 		<div class="page-title">
 			<div class="row">
 				<div class="col-12 col-md-6 order-md-1 order-last">
@@ -39,8 +23,8 @@
 				</div>
 			</div>
 		</div>
-		<section class="section">
-			<div class="card">
+		<section class="section w-100">
+			<div class="card admin-category-card w-100">
 				<div class="card-header">Danh Mục Sản Phẩm</div>
 				<div class="card-body">
 					<button type="button" class="btn btn-success btn-admin-page"
@@ -87,12 +71,9 @@
 		</section>
 	</div>
 
-	<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="/assets/js/bootstrap.bundle.min.js"></script>
 	<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
 	<script>
 		if (typeof initAdminPage === 'function') initAdminPage();
 		else if (typeof initAdminDataTable === 'function') initAdminDataTable();
 	</script>
 </div>
-</html>

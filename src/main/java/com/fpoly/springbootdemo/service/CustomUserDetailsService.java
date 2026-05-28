@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Tài khoản chưa có vai trò");
         }
 
-        String maVaiTro = nguoiDung.getVaiTro().getMaVaiTro();
+        String maVaiTro = resolveRoleCode(nguoiDung);
 
         if (maVaiTro == null || maVaiTro.isBlank()) {
             throw new UsernameNotFoundException("Vai trò không hợp lệ");
@@ -39,11 +39,22 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(
                 nguoiDung.getEmail(),
                 nguoiDung.getMatKhauHash(),
-                nguoiDung.getTrangThai() != null && nguoiDung.getTrangThai(),
+                Boolean.TRUE.equals(nguoiDung.getTrangThai()),
                 true,
                 true,
                 true,
                 List.of(new SimpleGrantedAuthority("ROLE_" + maVaiTro.trim().toUpperCase()))
         );
+    }
+
+    private String resolveRoleCode(NguoiDungModel nguoiDung) {
+        Byte vaiTroId = nguoiDung.getVaiTro().getId();
+        if (vaiTroId != null) {
+            if (vaiTroId == 1) return "ADMIN";
+            if (vaiTroId == 2) return "STAFF";
+            if (vaiTroId == 3) return "CUSTOMER";
+        }
+
+        return nguoiDung.getVaiTro().getMaVaiTro();
     }
 }

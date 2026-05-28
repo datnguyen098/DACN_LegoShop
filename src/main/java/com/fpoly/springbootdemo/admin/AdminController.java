@@ -22,4 +22,10 @@ public class AdminController {
         model.addAttribute("content", "viewAdmin/DashBoard.html");
         return "viewAdmin/indexAdmin";
     }
+
+    @GetMapping("/nhanvien")
+    public String nhanVien(Model model) {
+        model.addAttribute("content", "viewAdmin/NhanVien/NhanVienAdmin.html");
+        return "viewAdmin/indexAdmin";
+    }
 }

@@ -10,4 +10,9 @@ public class AuthController {
     public String login() {
         return "viewAdmin/LoginFormAdmin";
     }
+
+    @GetMapping({"/admin", "/admin/"})
+    public String redirectAdminShortcut() {
+        return "redirect:/legoshop/admin";
+    }
 }

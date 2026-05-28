@@ -22,20 +22,29 @@
     document.getElementById('authPanelReg').classList.toggle('active', !isLogin);
   }
 
+  function splitFullName(fullName) {
+    const parts = fullName.trim().replace(/\s+/g, ' ').split(' ');
+    const ten = parts.pop() || '';
+    const ho = parts.join(' ');
+    return { ho, ten };
+  }
+
   window.authSwitchTab = switchTab;
 
   window.authToggleEye = function (id, btn) {
-    const inp = document.getElementById(id);
+    const input = document.getElementById(id);
     const icon = btn.querySelector('i');
-    if (inp.type === 'password') {
-      inp.type = 'text';
+
+    if (input.type === 'password') {
+      input.type = 'text';
       icon.className = 'ti ti-eye-off';
       btn.style.color = '#ff6b00';
-    } else {
-      inp.type = 'password';
-      icon.className = 'ti ti-eye';
-      btn.style.color = '';
+      return;
     }
+
+    input.type = 'password';
+    icon.className = 'ti ti-eye';
+    btn.style.color = '';
   };
 
   function openModal(tab) {
@@ -51,24 +60,27 @@
 
   function setLoggedIn(user) {
     if (btnShowAuth) btnShowAuth.classList.add('d-none');
-    if (btnLogout) {
-      btnLogout.classList.remove('d-none');
-      const label = btnLogout.querySelector('span');
-      if (label && user && user.hoTen) {
-        label.textContent = user.hoTen;
-      } else if (label) {
-        label.textContent = 'Đăng Xuất';
-      }
+
+    if (!btnLogout) return;
+
+    btnLogout.classList.remove('d-none');
+    const label = btnLogout.querySelector('span');
+
+    if (label && user && user.hoTen) {
+      label.textContent = user.hoTen;
+    } else if (label) {
+      label.textContent = 'Đăng Xuất';
     }
   }
 
   function setLoggedOut() {
     if (btnShowAuth) btnShowAuth.classList.remove('d-none');
-    if (btnLogout) {
-      btnLogout.classList.add('d-none');
-      const label = btnLogout.querySelector('span');
-      if (label) label.textContent = 'Đăng Xuất';
-    }
+
+    if (!btnLogout) return;
+
+    btnLogout.classList.add('d-none');
+    const label = btnLogout.querySelector('span');
+    if (label) label.textContent = 'Đăng Xuất';
   }
 
   function checkSession() {
@@ -94,6 +106,7 @@
   window.authHandleLogin = function () {
     const email = document.getElementById('authLoginEmail').value.trim();
     const matKhau = document.getElementById('authLoginPass').value;
+
     if (!email) { showToast('Vui lòng nhập email'); return; }
     if (!matKhau) { showToast('Vui lòng nhập mật khẩu'); return; }
 
@@ -115,14 +128,15 @@
   };
 
   window.authHandleRegister = function () {
-    const ho = document.getElementById('authRegLast').value.trim();
-    const ten = document.getElementById('authRegFirst').value.trim();
+    const hoTen = document.getElementById('authRegFullName').value.trim().replace(/\s+/g, ' ');
     const email = document.getElementById('authRegEmail').value.trim();
     const soDienThoai = document.getElementById('authRegPhone').value.trim();
     const matKhau = document.getElementById('authRegPass').value;
     const xacNhanMatKhau = document.getElementById('authRegConfirm').value;
+    const { ho, ten } = splitFullName(hoTen);
 
-    if (!ho || !ten) { showToast('Vui lòng nhập họ và tên'); return; }
+    if (!hoTen) { showToast('Vui lòng nhập họ và tên'); return; }
+    if (!ho || !ten) { showToast('Vui lòng nhập đầy đủ họ và tên'); return; }
     if (!email || !email.includes('@')) { showToast('Email không hợp lệ'); return; }
     if (!soDienThoai) { showToast('Vui lòng nhập số điện thoại'); return; }
     if (matKhau.length < 8) { showToast('Mật khẩu phải có ít nhất 8 ký tự'); return; }

@@ -57,7 +57,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link text-muted admin-disabled-link">
+                        <a th:href="@{/legoshop/admin/nhanvien}" class="sidebar-link admin-nav-link">
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Quản lý nhân viên</span>
                         </a>
@@ -70,9 +70,10 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub">
-                        <a href="#" class="sidebar-link">
+                    <li class="sidebar-item has-sub admin-product-menu">
+                        <a href="#" class="sidebar-link admin-product-menu-toggle d-flex align-items-center justify-content-between w-100 flex items-center justify-between w-full">
                             <i class="bi bi-box-seam-fill"></i>
+                            <i class="bi bi-chevron-down admin-product-chevron transform transition-transform duration-200"></i>
                             <span>Quản lý sản phẩm</span>
                         </a>
                         <ul class="submenu">
@@ -82,7 +83,7 @@
                                     Danh sách sản phẩm
                                 </a>
                             </li>
-                            <li class="submenu-item">
+                            <li class="submenu-item d-none">
                                 <a th:href="@{/legoshop/admin/sanpham/add}" class="admin-nav-link">
                                     <i class="bi bi-plus-circle"></i>
                                     Thêm sản phẩm
@@ -172,13 +173,25 @@
                 </button>
 
                 <div class="admin-profile d-none d-sm-flex">
-                    <span class="admin-avatar">A</span>
+                    <span class="admin-avatar" th:text="${currentAdmin.avatarText}">A</span>
                     <span>
-                        <strong>Admin Đạt</strong>
-                        <small>Quản trị viên</small>
+                        <strong th:text="${currentAdmin.hoTen}">Admin Đạt</strong>
+                        <small th:text="${currentAdmin.tenVaiTro}">Quản trị viên</small>
                     </span>
                     <i class="bi bi-chevron-down"></i>
                 </div>
+
+                <form th:action="@{/logout}" action="/logout" method="post" class="admin-logout-form">
+                    <input type="hidden"
+                           th:if="${_csrf != null}"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}">
+
+                    <button type="submit" class="admin-logout-btn" title="Đăng xuất">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Đăng xuất</span>
+                    </button>
+                </form>
             </div>
         </header>
 
