@@ -1,151 +1,158 @@
-<div id="main" xmlns:th="http://www.thymeleaf.org">
-    <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none">
-            <i class="bi bi-justify fs-3"></i>
-        </a>
-    </header>
+<div xmlns:th="http://www.thymeleaf.org" class="admin-page admin-dashboard-page">
+    <section class="dashboard-stat-grid">
+        <article class="dashboard-stat-card">
+            <div class="dashboard-stat-top">
+                <span class="dashboard-stat-icon">
+                    <i class="bi bi-currency-dollar"></i>
+                </span>
+                <span class="dashboard-stat-growth">+12%</span>
+            </div>
+            <p>Tổng doanh thu</p>
+            <h4>128.500.000đ</h4>
+        </article>
 
-    <div class="page-heading">
-        <h3>Tổng quan cửa hàng LEGO</h3>
-        <p class="text-muted mb-0">
-            Thống kê từ database —
-            <span th:text="${stats.tongDonHang}">0</span> đơn hàng,
-            <span th:text="${stats.tongSanPham}">0</span> sản phẩm,
-            <span th:text="${stats.tongKhachHang}">0</span> khách hàng
-        </p>
-    </div>
+        <article class="dashboard-stat-card">
+            <div class="dashboard-stat-top">
+                <span class="dashboard-stat-icon">
+                    <i class="bi bi-person-plus"></i>
+                </span>
+                <span class="dashboard-stat-growth">+12%</span>
+            </div>
+            <p>Người dùng mới</p>
+            <h4 th:text="${stats.tongKhachHang}">1.248</h4>
+        </article>
 
-    <div class="page-content">
-        <section class="row g-3">
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100">
-                    <div class="card-body px-4 py-4">
-                        <div class="d-flex align-items-center">
-                            <div class="stats-icon purple flex-shrink-0">
-                                <i class="bi bi-stack"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="text-muted font-semibold mb-1">Danh mục</h6>
-                                <h4 class="font-extrabold mb-0" th:text="${stats.tongDanhMuc}">0</h4>
-                                <small class="text-muted">Đang dùng: <span th:text="${stats.danhMucDangDung}">0</span></small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <article class="dashboard-stat-card">
+            <div class="dashboard-stat-top">
+                <span class="dashboard-stat-icon">
+                    <i class="bi bi-cart3"></i>
+                </span>
+                <span class="dashboard-stat-growth">+12%</span>
             </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100">
-                    <div class="card-body px-4 py-4">
-                        <div class="d-flex align-items-center">
-                            <div class="stats-icon blue flex-shrink-0">
-                                <i class="bi bi-box-seam-fill"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="text-muted font-semibold mb-1">Sản phẩm đang bán</h6>
-                                <h4 class="font-extrabold mb-0" th:text="${stats.sanPhamDangBan}">0</h4>
-                                <small class="text-muted">Tổng: <span th:text="${stats.tongSanPham}">0</span></small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <p>Đơn hàng mới</p>
+            <h4 th:text="${stats.tongDonHang}">326</h4>
+        </article>
+
+        <article class="dashboard-stat-card">
+            <div class="dashboard-stat-top">
+                <span class="dashboard-stat-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </span>
+                <span class="dashboard-stat-growth">+12%</span>
             </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100">
-                    <div class="card-body px-4 py-4">
-                        <div class="d-flex align-items-center">
-                            <div class="stats-icon green flex-shrink-0">
-                                <i class="bi bi-people-fill"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="text-muted font-semibold mb-1">Khách hàng</h6>
-                                <h4 class="font-extrabold mb-0" th:text="${stats.tongKhachHang}">0</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100">
-                    <div class="card-body px-4 py-4">
-                        <div class="d-flex align-items-center">
-                            <div class="stats-icon red flex-shrink-0">
-                                <i class="bi bi-exclamation-triangle-fill"></i>
-                            </div>
-                            <div class="ms-3">
-                                <h6 class="text-muted font-semibold mb-1">Tồn kho thấp (&lt;10)</h6>
-                                <h4 class="font-extrabold mb-0" th:text="${stats.tonKhoThap}">0</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <p>Tỷ lệ chuyển đổi</p>
+            <h4>8.7%</h4>
+        </article>
+    </section>
+
+    <section class="dashboard-orders-card">
+        <div class="dashboard-orders-header">
+            <div>
+                <h4>Đơn hàng gần đây</h4>
+                <p>Danh sách các đơn hàng mới phát sinh.</p>
             </div>
 
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body py-4 text-center">
-                        <i class="bi bi-hourglass-split text-warning fs-3 d-block mb-2"></i>
-                        <h6 class="text-muted mb-1">Đơn chờ xác nhận</h6>
-                        <h4 class="mb-0" th:text="${stats.donChoXacNhan}">0</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body py-4 text-center">
-                        <i class="bi bi-truck text-primary fs-3 d-block mb-2"></i>
-                        <h6 class="text-muted mb-1">Đơn đang giao</h6>
-                        <h4 class="mb-0" th:text="${stats.donDangGiao}">0</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body py-4 text-center">
-                        <i class="bi bi-check-circle-fill text-success fs-3 d-block mb-2"></i>
-                        <h6 class="text-muted mb-1">Đơn hoàn thành</h6>
-                        <h4 class="mb-0" th:text="${stats.donHoanThanh}">0</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-xl-3 col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body py-4 text-center">
-                        <i class="bi bi-slash-circle text-secondary fs-3 d-block mb-2"></i>
-                        <h6 class="text-muted mb-1">SP ngừng bán</h6>
-                        <h4 class="mb-0" th:text="${stats.sanPhamNgungBan}">0</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <button type="button" class="btn dashboard-export-btn">
+                <i class="bi bi-download"></i>
+                Xuất báo cáo
+            </button>
+        </div>
 
-        <section class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Truy cập nhanh</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap gap-2">
-                            <button type="button" class="btn btn-outline-primary btn-admin-page"
-                                    th:data-url="@{/legoshop/admin/danhmuc}">
-                                <i class="bi bi-stack me-1"></i> Danh mục
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-admin-page"
-                                    th:data-url="@{/legoshop/admin/sanpham}">
-                                <i class="bi bi-box-seam me-1"></i> Sản phẩm
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-admin-page"
-                                    th:data-url="@{/legoshop/admin/sanpham/tonkho}">
-                                <i class="bi bi-archive me-1"></i> Tồn kho
-                            </button>
-                            <button type="button" class="btn btn-outline-primary btn-admin-page"
-                                    th:data-url="@{/legoshop/admin/sanpham/anhsanpham}">
-                                <i class="bi bi-images me-1"></i> Ảnh sản phẩm
-                            </button>
+        <div class="table-responsive">
+            <table class="table dashboard-orders-table mb-0">
+                <thead>
+                <tr>
+                    <th>Mã ĐH</th>
+                    <th>Tên khách hàng</th>
+                    <th>Ngày mua</th>
+                    <th>Số tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>#DH00124</td>
+                    <td>
+                        <div class="dashboard-customer">
+                            <span>A</span>
+                            <strong>Nguyễn Văn An</strong>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+                    </td>
+                    <td>28/05/2026</td>
+                    <td>2.450.000đ</td>
+                    <td>
+                        <span class="dashboard-status dashboard-status-paid">
+                            <i></i>
+                            Đã thanh toán
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="dashboard-detail-btn">Chi tiết</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#DH00125</td>
+                    <td>
+                        <div class="dashboard-customer">
+                            <span>B</span>
+                            <strong>Trần Minh Bình</strong>
+                        </div>
+                    </td>
+                    <td>28/05/2026</td>
+                    <td>1.890.000đ</td>
+                    <td>
+                        <span class="dashboard-status dashboard-status-pending">
+                            <i></i>
+                            Chờ xử lý
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="dashboard-detail-btn">Chi tiết</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#DH00126</td>
+                    <td>
+                        <div class="dashboard-customer">
+                            <span>C</span>
+                            <strong>Lê Hoàng Chi</strong>
+                        </div>
+                    </td>
+                    <td>27/05/2026</td>
+                    <td>3.200.000đ</td>
+                    <td>
+                        <span class="dashboard-status dashboard-status-paid">
+                            <i></i>
+                            Đã thanh toán
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="dashboard-detail-btn">Chi tiết</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#DH00127</td>
+                    <td>
+                        <div class="dashboard-customer">
+                            <span>D</span>
+                            <strong>Phạm Quốc Dũng</strong>
+                        </div>
+                    </td>
+                    <td>27/05/2026</td>
+                    <td>950.000đ</td>
+                    <td>
+                        <span class="dashboard-status dashboard-status-pending">
+                            <i></i>
+                            Chờ xử lý
+                        </span>
+                    </td>
+                    <td>
+                        <button type="button" class="dashboard-detail-btn">Chi tiết</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
