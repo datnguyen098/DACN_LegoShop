@@ -999,7 +999,7 @@
             <!-- Sort bar -->
             <div class="sort-bar">
                 <div class="product-count">
-                    Hiển thị <strong>86</strong> bộ LEGO
+                    Hiển thị <strong th:text="${sanPhamPage != null ? sanPhamPage.totalElements : 0}">0</strong> bộ LEGO
                 </div>
 
                 <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -1022,104 +1022,26 @@
             <!-- Product grid -->
             <div class="row g-3">
 
-                <!-- Card 1 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag">-18%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
 
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=LEGO+Ferrari" alt="LEGO Technic Ferrari Daytona SP3"/>
-                        </div>
 
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Technic</div>
 
-                            <div class="product-name">
-                                LEGO Technic Ferrari Daytona SP3 - Siêu xe thể thao 3.778 mảnh, chi tiết cực đẹp
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                </div>
-                                <span class="rating-num">4.8</span>
-                                <span class="sold-num">Đã bán 1.2k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">9.990.000₫</span>
-                                <span class="price-old">12.990.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag hot">HOT</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=Millennium+Falcon" alt="LEGO Star Wars Millennium Falcon"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Star Wars</div>
-
-                            <div class="product-name">
-                                LEGO Star Wars Millennium Falcon - Phi thuyền huyền thoại cho fan vũ trụ
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="rating-num">5.0</span>
-                                <span class="sold-num">Đã bán 2.8k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">4.990.000₫</span>
-                                <span class="price-old">5.990.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Card 3 -->
-                <div class="col-6 col-md-6 col-lg-4">
+                <div class="col-6 col-md-6 col-lg-4" th:each="sp : ${listSanPham}">
                     <div class="product-card">
                         <span class="product-tag new">MỚI</span>
                         <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
 
                         <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=Eiffel+Tower" alt="LEGO Icons Eiffel Tower"/>
+                            <img th:if="${sp.AnhChinh != null}"
+                                 th:src="@{/uploads/{fileName}(fileName=${sp.AnhChinh})}"
+                                 th:alt="${sp.tenSanPham}"/>
                         </div>
 
                         <div class="product-body">
-                            <div class="product-brand">LEGO Icons</div>
+                            <div class="product-brand" th:text="${sp.danhMuc.tenDanhMuc}">LEGO Icons</div>
 
-                            <div class="product-name">
+                            <div class="product-name" th:text="${sp.tenSanPham}">
                                 LEGO Icons Eiffel Tower - Mô hình tháp Eiffel cao cấp để trưng bày
                             </div>
 
@@ -1136,8 +1058,8 @@
                             </div>
 
                             <div class="product-price-row">
-                                <span class="price-new">6.490.000₫</span>
-                                <span class="price-old">7.990.000₫</span>
+                                <span class="price-new" th:text="${sp.gia}">6.490.000₫</span>
+                                <span class="price-old" th:text="${sp.giaGoc}">7.990.000₫</span>
                             </div>
 
                             <button class="btn-cart">
@@ -1148,276 +1070,39 @@
                     </div>
                 </div>
 
-                <!-- Card 4 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag">-22%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
 
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=NINJAGO+City" alt="LEGO NINJAGO City Markets"/>
-                        </div>
 
-                        <div class="product-body">
-                            <div class="product-brand">LEGO NINJAGO</div>
-
-                            <div class="product-name">
-                                LEGO NINJAGO City Markets - Khu chợ thành phố nhiều tầng với minifigure
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </div>
-                                <span class="rating-num">4.3</span>
-                                <span class="sold-num">Đã bán 1.1k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">8.990.000₫</span>
-                                <span class="price-old">10.990.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag">-10%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=Hogwarts+Castle" alt="LEGO Harry Potter Hogwarts Castle"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Harry Potter</div>
-
-                            <div class="product-name">
-                                LEGO Harry Potter Hogwarts Castle - Lâu đài phép thuật dành cho fan Harry Potter
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                </div>
-                                <span class="rating-num">4.6</span>
-                                <span class="sold-num">Đã bán 740</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">5.290.000₫</span>
-                                <span class="price-old">6.490.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag hot">-30%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=LEGO+City" alt="LEGO City Police Station"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO City</div>
-
-                            <div class="product-name">
-                                LEGO City Police Station - Đồn cảnh sát thành phố, xe tuần tra và minifigure
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="rating-num">4.9</span>
-                                <span class="sold-num">Đã bán 3.4k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">890.000₫</span>
-                                <span class="price-old">1.290.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 7 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag new">MỚI</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=LEGO+Minecraft" alt="LEGO Minecraft The Crafting Table"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Minecraft</div>
-
-                            <div class="product-name">
-                                LEGO Minecraft The Crafting Table - Bộ lắp ráp thế giới khối vuông sáng tạo
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                </div>
-                                <span class="rating-num">4.5</span>
-                                <span class="sold-num">Đã bán 1.9k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">2.190.000₫</span>
-                                <span class="price-old">2.690.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 8 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag">-15%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=Architecture" alt="LEGO Architecture Notre-Dame de Paris"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Architecture</div>
-
-                            <div class="product-name">
-                                LEGO Architecture Notre-Dame de Paris - Mô hình kiến trúc tinh xảo để trưng bày
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </div>
-                                <span class="rating-num">4.2</span>
-                                <span class="sold-num">Đã bán 520</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">3.490.000₫</span>
-                                <span class="price-old">4.190.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 9 -->
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="product-card">
-                        <span class="product-tag">-12%</span>
-                        <button class="wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-
-                        <div class="product-img-wrap">
-                            <img src="https://placehold.co/300x200/F5F6F8/FF6B00?text=Disney+Castle" alt="LEGO Disney Castle"/>
-                        </div>
-
-                        <div class="product-body">
-                            <div class="product-brand">LEGO Disney</div>
-
-                            <div class="product-name">
-                                LEGO Disney Castle - Lâu đài cổ tích phiên bản trưng bày cao cấp
-                            </div>
-
-                            <div class="product-meta">
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                </div>
-                                <span class="rating-num">4.7</span>
-                                <span class="sold-num">Đã bán 1.5k</span>
-                            </div>
-
-                            <div class="product-price-row">
-                                <span class="price-new">4.790.000₫</span>
-                                <span class="price-old">5.990.000₫</span>
-                            </div>
-
-                            <button class="btn-cart">
-                                <i class="fa-solid fa-cart-plus"></i>
-                                Thêm vào giỏ
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
             <!-- Pagination -->
-            <div class="pagination-wrap">
+            <div class="pagination-wrap" th:if="${totalPages != null and totalPages > 1}">
                 <div class="d-flex gap-2 align-items-center">
-                    <a href="#" class="page-btn disabled">
+                    <a th:href="${currentPage == 0 ? '#' : baseUrl + '?page=' + (currentPage - 1)}"
+                       th:classappend="${currentPage == 0} ? ' disabled' : ''"
+                       class="page-btn">
                         <i class="fa-solid fa-chevron-left" style="font-size:.75rem;"></i>
                     </a>
 
-                    <a href="#" class="page-btn active">1</a>
-                    <a href="#" class="page-btn">2</a>
-                    <a href="#" class="page-btn">3</a>
+                    <a th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}"
+                       th:if="${totalPages <= 6 or pageNumber < 3 or (pageNumber == currentPage and pageNumber != totalPages - 1)}"
+                       th:href="${baseUrl + '?page=' + pageNumber}"
+                       th:text="${pageNumber + 1}"
+                       th:classappend="${pageNumber == currentPage} ? ' active' : ''"
+                       class="page-btn">1</a>
 
-                    <span style="color:var(--xam-mid);font-size:.85rem;padding:0 4px;">...</span>
+                    <span th:if="${totalPages > 6 and currentPage < totalPages - 2}"
+                          style="color:var(--xam-mid);font-size:.85rem;padding:0 4px;">...</span>
 
-                    <a href="#" class="page-btn">10</a>
+                    <a th:if="${totalPages > 6}"
+                       th:href="${baseUrl + '?page=' + (totalPages - 1)}"
+                       th:text="${totalPages}"
+                       th:classappend="${currentPage == totalPages - 1} ? ' active' : ''"
+                       class="page-btn">10</a>
 
-                    <a href="#" class="page-btn">
+                    <a th:href="${currentPage + 1 >= totalPages ? '#' : baseUrl + '?page=' + (currentPage + 1)}"
+                       th:classappend="${currentPage + 1 >= totalPages} ? ' disabled' : ''"
+                       class="page-btn">
                         <i class="fa-solid fa-chevron-right" style="font-size:.75rem;"></i>
                     </a>
                 </div>

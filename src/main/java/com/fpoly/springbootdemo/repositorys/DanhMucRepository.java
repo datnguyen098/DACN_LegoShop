@@ -19,5 +19,5 @@ public interface DanhMucRepository extends JpaRepository<DanhMucModel, Long> {
 
     @Query("select dm.tenDanhMuc from DanhMucModel dm where dm.trangThai = true")
     List<String> findAllTenDanhMuc();
-
+ List<DanhMucModel> findByTrangThaiTrue();
 }

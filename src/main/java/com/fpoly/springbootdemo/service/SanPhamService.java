@@ -21,6 +21,8 @@ import com.fpoly.springbootdemo.repositorys.TonKhoRepository;
 import com.fpoly.springbootdemo.util.SlugUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -171,5 +173,16 @@ return lst;
 	}
 	public SanPhamModel findById(Long id){
 		return sanPhamRe.findById(id).orElse(null);
+	}
+	 public List<SanPhamModel> getSanPhamByDanhMucDuongDan(String duongDan){
+		return sanPhamRe.findByDanhMuc_DuongDanAndTrangThai(duongDan, "DANG_BAN");
+	 }
+
+	public Page<SanPhamModel> getSanPhamDangBanPhanTrang(int page, int size) {
+		return sanPhamRe.findByTrangThai("DANG_BAN", PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id")));
+	}
+
+	public Page<SanPhamModel> getSanPhamByDanhMucDuongDan(String duongDan, int page, int size) {
+		return sanPhamRe.findByDanhMuc_DuongDanAndTrangThai(duongDan, "DANG_BAN", PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id")));
 	}
 }
